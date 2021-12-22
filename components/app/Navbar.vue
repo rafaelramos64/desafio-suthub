@@ -17,7 +17,7 @@
     <v-btn text tile color="secondary">
       Ir para Formluário
     </v-btn>
-    <v-btn text tile color="secondary">
+    <v-btn text tile color="secondary" nuxt to="/countries">
       Listar Países
     </v-btn>
   </v-app-bar>
