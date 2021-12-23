@@ -27,6 +27,7 @@
 import { mapActions } from 'vuex'
 
 export default {
+  name: 'Navbar',
   data () {
     return {}
   },
@@ -35,7 +36,7 @@ export default {
     ...mapActions(['searchCountries']),
 
     goToCountriesPage () {
-      this.searchCountries('alpha/br')
+      this.searchCountries('name/brazil')
     }
   }
 }

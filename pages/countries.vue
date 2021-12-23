@@ -3,35 +3,26 @@
     <v-col>
       <h1>fsdfdf</h1>
       {{ getCountries }}
-      <!-- <Country :country="getCountries" /> -->
+      <Country :country="getCountries" />
+      <Flag :country="getCountries" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Country',
   data () {
     return {
+      ret: this.getCountries
     }
   },
 
   computed: {
-    /* ...mapGetters(['getCountries']), */
-    getCountries () {
-      return this.$store.getters.getCountries
-    },
+    ...mapGetters(['getCountries']),
   },
-
-  watch: {
-    getCountries() {
-      console.log('123', this.getCountries)
-    }
- },
-  methods: {
-  }
 }
 </script>
 

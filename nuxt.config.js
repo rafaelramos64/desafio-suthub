@@ -31,7 +31,7 @@ export default {
     dirs: [
       '~/components',
       '~/components/app',
-      '~/components/countries',
+      '~/components/country',
     ]
   },
 
