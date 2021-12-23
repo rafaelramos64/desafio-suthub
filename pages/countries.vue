@@ -1,15 +1,10 @@
 <template>
-  <v-row>
-    <v-col>
-      <h1>fsdfdf</h1>
-      {{ getCountries }}
-      <Flag :country="getCountries" />
-    </v-col>
-  </v-row>
+  <div>
+    <CountryInfo />
+  </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 
 export default {
   name: 'Country',
@@ -17,10 +12,6 @@ export default {
     return {
       ret: this.getCountries
     }
-  },
-
-  computed: {
-    ...mapGetters(['getCountries']),
   },
 }
 </script>

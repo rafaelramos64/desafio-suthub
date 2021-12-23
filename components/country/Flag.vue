@@ -1,28 +1,25 @@
 <template>
-  <div>
-    <h1>12312312312</h1>
-    <v-img
-      class="mb-3"
-      :class="selectedCountry ? 'selected-country' : 'country-img change-cursor'"
-      :src="country.flag"
-      :lazy-src="country.flag"
-      :alt="country.name"
-      max-width="316"
-    >
-      <template v-slot:placeholder>
-        <v-row
-          class="fill-height ma-0"
-          align="center"
-          justify="center"
-        >
-          <v-progress-circular
-            indeterminate
-            color="primary lighten-2"
-          ></v-progress-circular>
-        </v-row>
-      </template>
-    </v-img>
-  </div>
+  <v-img
+    class="mb-3"
+    :class="selectedCountry ? 'selected-country' : 'country-img change-cursor'"
+    :src="country.flag"
+    :lazy-src="country.flag"
+    :alt="country.name"
+    max-width="316"
+  >
+    <template v-slot:placeholder>
+      <v-row
+        class="fill-height ma-0"
+        align="center"
+        justify="center"
+      >
+        <v-progress-circular
+          indeterminate
+          color="primary lighten-2"
+        ></v-progress-circular>
+      </v-row>
+    </template>
+  </v-img>
 </template>
 
 <script>
