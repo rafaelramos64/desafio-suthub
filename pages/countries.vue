@@ -3,7 +3,6 @@
     <v-col>
       <h1>fsdfdf</h1>
       {{ getCountries }}
-      <Country :country="getCountries" />
       <Flag :country="getCountries" />
     </v-col>
   </v-row>
