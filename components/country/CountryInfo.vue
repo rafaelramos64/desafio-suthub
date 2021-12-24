@@ -71,7 +71,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getCountries', 'getBorders']),
+    ...mapGetters(['getCountries', 'getBorders'])
   },
 }
 </script>
