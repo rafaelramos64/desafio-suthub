@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" class="mt-5">
-    <v-col class="d-flex justify-center">
+    <v-col cols="12" class="d-flex justify-center">
       <Flag selectedCountry :country="getCountries" />
     </v-col>
 
@@ -72,7 +72,7 @@
       </ul>
     </v-col> -->
 
-    <v-col>
+    <v-col cols="11">
       <v-simple-table>
         <template v-slot:default>
           <thead>
@@ -84,31 +84,30 @@
           </thead>
 
           <tbody>
-            <tr>
+            <tr class="text-center">
               <td> {{ getCountries.name }}</td>
               <td>{{ getCountries.capital }}</td>
               <td>{{ getCountries.callingCodes }}</td>
-              <td class="text-center">{{ getCountries.region }}</td>
-              <td class="text-center">{{ getCountries.subregion }}</td>
+              <td>{{ getCountries.region }}</td>
+              <td>{{ getCountries.subregion }}</td>
               <td>{{ getCountries.population }}</td>
               <td>{{ getCountries.area }}</td>
               <td>{{ getCountries.alpha2Code }}</td>
               <td v-for="currency in getCountries.currencies" :key="currency.name">
-                {{ currency.name }}
-              </td>
-              <td v-for="currency in getCountries.currencies" :key="currency.symbol">
-                {{ currency.symbol }}
+                {{ currency.name }}, {{ currency.symbol }}
               </td>
               <td v-for="lang in getCountries.languages" :key="lang.name">
                 {{ lang.name }}
               </td>
-              <td
-                v-for="(border, key) in getCountries.borders"
-                :key="key"
-                class="d-flex flex-column text-center borders"
+              <div class="borders text-left">
+                <td
+                v-for="border in getBorders"
+                :key="border.name"
+                class="d-flex "
               >
-                {{ border }}
+                {{ border.nativeName }}
               </td>
+              </div>
             </tr>
           </tbody>
         </template>
@@ -133,32 +132,38 @@ export default {
         'Área',
         'Código Alfa',
         'Moeda',
-        'Símbolo',
-        'Línguas',
+        'Língua',
         'Países Vizinhos'
       ]
     }
   },
 
   computed: {
-    ...mapGetters(['getCountries']),
+    ...mapGetters(['getCountries', 'getBorders']),
   },
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 .thead-title {
+  font-size: 0.9rem !important;
   color: #007C74 !important;
 }
 
 .borders {
-  max-height: 100px !important;
+  max-height: 70px;
+  overflow: auto;
+}
+
+::-webkit-scrollbar {
+  width: 6px !important;
+  background-color: #f8f8f8 !important;
 }
 
 @media screen and (max-width: 550px) {
   .country-info {
-      margin-top: 10px !important;
+    margin-top: 10px !important;
   }
 }
 
