@@ -17,11 +17,30 @@
     <v-btn text tile color="secondary">
       Ir para Formluário
     </v-btn>
-    <v-btn text tile color="secondary">
+    <v-btn text tile color="secondary" nuxt to="/countries" @click="goToCountriesPage()">
       Listar Países
     </v-btn>
   </v-app-bar>
 </template>
+
+<script>
+import { mapActions } from 'vuex'
+
+export default {
+  name: 'Navbar',
+  data () {
+    return {}
+  },
+
+  methods: {
+    ...mapActions(['searchCountries']),
+
+    goToCountriesPage () {
+      this.searchCountries('name/brazil')
+    }
+  }
+}
+</script>
 
 <style scoped lang="scss">
 .btn {

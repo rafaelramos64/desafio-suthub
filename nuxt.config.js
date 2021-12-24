@@ -31,6 +31,7 @@ export default {
     dirs: [
       '~/components',
       '~/components/app',
+      '~/components/country',
     ]
   },
 
@@ -51,7 +52,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: ' https://restcountries.com/v3.1/',
+    baseURL: 'https://restcountries.com/v2/',
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

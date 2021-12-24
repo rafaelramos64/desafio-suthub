@@ -3,12 +3,12 @@
     <Navbar />
 
     <v-main>
-      <v-container>
+      <v-container fluid>
         <Nuxt />
       </v-container>
     </v-main>
     
-    <Footerbar />
+    <Footer />
   </v-app>
 </template>
 
