@@ -71,7 +71,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getCountries', 'getBorders'])
+    ...mapGetters(['getCountries', 'getBorders']),
   },
 }
 </script>
@@ -110,6 +110,7 @@ ul {
 .region {
   color: #007C74;
 }
+
 
 .region:hover {
   text-decoration: underline;
