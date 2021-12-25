@@ -77,10 +77,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+ @import '~assets/scss/main.scss';
 
 .thead-title {
   font-size: 0.9rem !important;
-  color: #007C74 !important;
+  color: $primary !important;
 }
 
 .borders {
@@ -108,7 +109,7 @@ ul {
 }
 
 .region {
-  color: #007C74;
+  color: $primary;
 }
 
 
@@ -118,7 +119,7 @@ ul {
 }
 
 .text-title-color {
-  color: #004F49;
+  color: $secondary;
   font-weight: bold;
 }
 
