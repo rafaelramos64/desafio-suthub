@@ -4,24 +4,8 @@
       <v-col cols="3">
         <v-card-title class="justify-center regional-blocks-title my-3">Blocos Regionais</v-card-title>
         <ul class="text-left d-flex justify-center">
-          <li v-for="block in regionalBlocks" :key="block.text">
-            <v-tooltip top color="terciary">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  v-if="block.text"
-                  class="mx-1 mb-1 block-regional"
-                  rounded text color="primary"
-                  v-bind="attrs"
-                  v-on="on"
-                  active-class="block-regional-active"
-                  to="/regional-blocks"
-                  @click="searchCountriesByRegionalBlock(block.text)"
-                >
-                  {{ block.text }}
-                </v-btn>
-              </template>
-              <span>{{ block.description }}</span>
-            </v-tooltip>
+          <li v-for="(block, index) in regionalBlocks" :key="index">
+            <RegionalBlockBtn :block="block"/>
           </li>
         </ul>
 
@@ -55,7 +39,7 @@
                   rounded text color="primary"
                   v-bind="attrs"
                   v-on="on"
-                  @click.prevent.stop="searchCountriesByRegionalBlock(block.text)"
+                  @click.prevent.stop="activeRegionalBlockBtn(block.text)"
                 >
                   {{ block.text }}
                 </v-btn>
@@ -119,7 +103,8 @@ export default {
       regionalBlocks3: [
         { text: 'NAFTA', description: 'Acordo de Livre Comércio da América do Norte' },
         { text: 'SAARC', description: 'Associação do Sul da Ásia para Cooperação Regional' },
-      ]
+      ],
+      btnActive: '',
     }
   },
 
@@ -129,6 +114,11 @@ export default {
 
   methods: {
     ...mapActions(['searchCountriesByRegionalBlock']),
+
+    activeRegionalBlockBtn (block) {
+      this.btnActive = block
+      this.searchCountriesByRegionalBlock(block)
+    },
 
     spreadCordinates (cordinate) {
       return cordinate.join()
@@ -159,6 +149,10 @@ ul {
   transform: scale(1.1) !important;
   box-shadow: 0px 8px 10px -5px rgb(0 0 0 / 20%),
     0px 16px 24px 2px rgb(0 0 0 / 14%), 0px 6px 30px 5px rgb(0 0 0 / 12%);
+}
+
+.block-regional-active {
+  background-color: $secondary !important;
 }
 
 .thead-title {
