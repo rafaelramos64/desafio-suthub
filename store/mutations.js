@@ -5,5 +5,13 @@ export default {
 
   changeBorders (state, payload) {
     state.borders = payload
+  },
+
+  changeCountriesByRegionalBlock (state, payload) {
+    state.countriesByRegionalBlock = payload
+  },
+
+  changeLoadingCountries (state, payload) {
+    state.loadingCountries = payload
   }
 }

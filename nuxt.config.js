@@ -64,14 +64,15 @@ export default {
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
+    treeShake: true,
     customVariables: ['~/assets/scss/variables.scss'],
     theme: {
       dark: false,
       themes: {
         dark: {
-          primary: '#007C74',
+          primary: colors.blue.darken2,
+          secondary: colors.amber.darken3,
           accent: colors.grey.darken3,
-          secondary: '#004F49',
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
@@ -79,8 +80,9 @@ export default {
         },
         light: {
           primary: '#007C74',
-          accent: colors.grey.darken3,
           secondary: '#004F49',
+          terciary: '#02AE99',
+          accent: colors.grey.darken3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,

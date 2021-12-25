@@ -17,8 +17,11 @@
     <v-btn text tile color="secondary">
       Ir para Formluário
     </v-btn>
-    <v-btn text tile color="secondary" nuxt to="/countries" @click="goToCountriesPage()">
-      Listar Países
+    <v-btn text tile color="secondary" nuxt to="/countries" @click="goToCountriesPage()" class="mx-1">
+      Brasil
+    </v-btn>
+    <v-btn text tile color="secondary" nuxt to="/regional-blocks">
+      Blocos Regionais
     </v-btn>
   </v-app-bar>
 </template>
@@ -37,7 +40,7 @@ export default {
 
     goToCountriesPage () {
       this.searchCountries('name/brazil')
-    }
+    },
   }
 }
 </script>
