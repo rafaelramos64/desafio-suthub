@@ -19,7 +19,7 @@
             <tr class="text-center">
               <td> {{ getCountries.name }}</td>
               <td>{{ getCountries.capital }}</td>
-              <td>{{ getCountries.callingCodes }}</td>
+              <td>{{ spreadCallingCodes(getCountries.callingCodes) }}</td>
               <td>{{ getCountries.region }}</td>
               <td>{{ getCountries.subregion }}</td>
               <td>{{ getCountries.population }}</td>
@@ -73,11 +73,17 @@ export default {
   computed: {
     ...mapGetters(['getCountries', 'getBorders']),
   },
+
+  methods: {
+    spreadCallingCodes (codes) {
+      return codes.join()
+    }
+  }
 }
 </script>
 
 <style scoped lang="scss">
- @import '~assets/scss/main.scss';
+@import '~assets/scss/main.scss';
 
 .thead-title {
   font-size: 0.9rem !important;

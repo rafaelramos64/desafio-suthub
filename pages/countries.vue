@@ -10,7 +10,6 @@ export default {
   name: 'Country',
   data () {
     return {
-      ret: this.getCountries
     }
   },
 }
