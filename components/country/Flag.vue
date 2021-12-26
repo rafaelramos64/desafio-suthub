@@ -5,8 +5,7 @@
     :src="country.flag"
     :lazy-src="country.flag"
     :alt="country.name"
-    :width="fullWidth ? '344' : '316'"
-    :height="fullWidth ? '202' : '181'"
+    :width="fullWidth ? '100%' : '316'"
   >
     <template v-slot:placeholder>
       <v-row
