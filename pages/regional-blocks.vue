@@ -3,78 +3,38 @@
     <v-row justify="center">
       <v-col cols="3">
         <v-card-title class="justify-center regional-blocks-title my-3">Blocos Regionais</v-card-title>
+        
         <ul class="text-left d-flex justify-center">
-          <li v-for="block in regionalBlocks" :key="block.text">
-            <v-tooltip top color="terciary">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  v-if="block.text"
-                  class="mx-1 mb-1 block-regional"
-                  rounded text color="primary"
-                  v-bind="attrs"
-                  v-on="on"
-                  active-class="block-regional-active"
-                  to="/regional-blocks"
-                  @click="searchCountriesByRegionalBlock(block.text)"
-                >
-                  {{ block.text }}
-                </v-btn>
-              </template>
-              <span>{{ block.description }}</span>
-            </v-tooltip>
+          <li v-for="(block, index) in regionalBlocks" :key="index" @click="activeRegionalBlockBtn(block)">
+            <RegionalBlockBtn :block="block" :btnActive="btnActive"  />
           </li>
         </ul>
 
         <ul class="text-left d-flex justify-center">
-          <li v-for="(block, index) in regionalBlocks2" :key="index">
-            <v-tooltip top color="terciary">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  v-if="block.text"
-                  class="mx-1 mb-1 block-regional"
-                  rounded text color="primary"
-                  v-bind="attrs"
-                  v-on="on"
-                  @click.prevent.stop="searchCountriesByRegionalBlock(block.text)"
-                >
-                  {{ block.text }}
-                </v-btn>
-              </template>
-              <span>{{ block.description }}</span>
-            </v-tooltip>
+          <li v-for="(block, index) in regionalBlocks2" :key="index" @click="activeRegionalBlockBtn(block)">
+            <RegionalBlockBtn :block="block" :btnActive="btnActive"  />
           </li>
         </ul>
 
         <ul class="text-left d-flex justify-center">
-          <li v-for="(block, index) in regionalBlocks3" :key="index">
-            <v-tooltip top color="terciary">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  v-if="block.text"
-                  class="mx-1 mb-1 block-regional"
-                  rounded text color="primary"
-                  v-bind="attrs"
-                  v-on="on"
-                  @click.prevent.stop="searchCountriesByRegionalBlock(block.text)"
-                >
-                  {{ block.text }}
-                </v-btn>
-              </template>
-              <span>{{ block.description }}</span>
-            </v-tooltip>
+          <li v-for="(block, index) in regionalBlocks3" :key="index" @click="activeRegionalBlockBtn(block)">
+            <RegionalBlockBtn :block="block" :btnActive="btnActive"  />
           </li>
         </ul>
       </v-col>
     </v-row>
 
-    <v-row v-if="getCountriesByRegionalBlock.length > 0" justify="center">
+    <v-row v-if="getCountriesByRegionalBlock.length > 0" justify="center" class="mt-3">
       <v-col cols="5">
-        <v-simple-table>
+          <v-card-title class="py-1">Bloco Selecionado:</v-card-title>
+          <v-card-text>{{ btnActive.description }}</v-card-text>
+
+        <v-simple-table class="table-area">
           <template v-slot:default>
             <thead>
               <tr>
-                <th class="thead-title">Nome</th>
-                <th class="thead-title">Coordenadas</th>
+                <th class="thead-title">Países do Bloco</th>
+                <th class="thead-title">Coordenadas do País</th>
               </tr>
             </thead>
 
@@ -99,6 +59,7 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  name: 'regional-blocks',
   data () {
     return {
       regionalBlocks: [
@@ -119,7 +80,8 @@ export default {
       regionalBlocks3: [
         { text: 'NAFTA', description: 'Acordo de Livre Comércio da América do Norte' },
         { text: 'SAARC', description: 'Associação do Sul da Ásia para Cooperação Regional' },
-      ]
+      ],
+      btnActive: '',
     }
   },
 
@@ -130,8 +92,13 @@ export default {
   methods: {
     ...mapActions(['searchCountriesByRegionalBlock']),
 
+    activeRegionalBlockBtn (block) {
+      this.btnActive = block
+      this.searchCountriesByRegionalBlock(block.text)
+    },
+
     spreadCordinates (cordinate) {
-      return cordinate.join()
+      return cordinate.join('')
     }
   }
 }
@@ -161,8 +128,17 @@ ul {
     0px 16px 24px 2px rgb(0 0 0 / 14%), 0px 6px 30px 5px rgb(0 0 0 / 12%);
 }
 
+.block-regional-active {
+  background-color: $secondary !important;
+}
+
 .thead-title {
   font-size: 0.9rem !important;
   color: $primary !important;
+}
+
+.table-area {
+  max-height: 350px;
+  overflow: auto
 }
 </style>

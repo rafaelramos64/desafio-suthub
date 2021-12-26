@@ -13,5 +13,5 @@ export default {
 
   changeLoadingCountries (state, payload) {
     state.loadingCountries = payload
-  }
+  },
 }

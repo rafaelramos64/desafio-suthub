@@ -52,6 +52,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'CountryInfo',
   data () {
     return {
       titles: [
@@ -76,7 +77,7 @@ export default {
 
   methods: {
     spreadCallingCodes (codes) {
-      return codes.join()
+      return codes !== undefined ? codes.join() : ''
     }
   }
 }
