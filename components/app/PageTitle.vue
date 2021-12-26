@@ -1,5 +1,5 @@
 <template>
-  <div class="page-tittle mt-3 mb-7 ">
+  <div class="page-tittle mt-3 mb-7">
     <h3>{{ title }}</h3>
     <h5 v-if="subtitle !== ''">{{ subtitle }}</h5>
   </div>
