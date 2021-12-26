@@ -14,4 +14,8 @@ export default {
   getLoadingCountries (state) {
     return state.loadingCountries
   },
+
+  getSelectedLanguage (state) {
+    return state.selectedLanguage
+  }
 }
