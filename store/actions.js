@@ -41,4 +41,8 @@ export default {
       context.commit('changeLoadingCountries', false)
     }
   },
+
+  saveSelectedLanguage conte) {
+
+  }
 }
