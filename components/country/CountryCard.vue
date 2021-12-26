@@ -78,6 +78,15 @@ export default {
   letter-spacing: 0.0071428571em !important;
 }
 
+.flag-img {
+  filter: brightness(90%) drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25)) !important;
+  
+}
+.card-country:hover .flag-img {
+  transition: all 0.3s linear;
+  filter: brightness(100%) drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25)) !important;
+}
+
 .language:hover {
   transform: scale(1.1) !important;
   background-color: $primary !important;
