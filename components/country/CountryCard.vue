@@ -3,10 +3,10 @@
     <v-card
       :elevation="hover ? 16 : 2"
       :class="{ 'on-hover': hover }"
-      class="mx-auto card-country"
+      class="mx-auto"
       max-width="344"
     >
-      <Flag class="flag-img" fullWidth :country="country" />
+      <Flag fullWidth :country="country" />
       
       <v-card-title>
         {{ country.name }}
@@ -24,7 +24,6 @@
           :to="'lang/' + lang.iso639_1"
         >
           <span @click="saveSelectedLanguage(lang)">{{ lang.name }}, </span>
-          
         </v-btn>
       </v-card-subtitle>
 
@@ -61,8 +60,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
   name: 'CountryCard',
   props: {
@@ -73,10 +70,6 @@ export default {
       show: false,
     }
   },
-
-  methods: {
-    ...mapActions(['saveSelectedLanguage']),
-  }
 }
 </script>
 
@@ -95,6 +88,7 @@ export default {
 
 .flag-img {
   filter: brightness(90%) drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25)) !important;
+  
 }
 .card-country:hover .flag-img {
   transition: all 0.3s linear;

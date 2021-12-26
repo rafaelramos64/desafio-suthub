@@ -1,6 +1,5 @@
 <template>
   <div>
-    <PageTitle title="Brasil" />
     <CountryInfo />
   </div>
 </template>

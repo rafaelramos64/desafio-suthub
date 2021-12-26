@@ -1,6 +1,5 @@
 <template>
   <div>
-    <PageTitle title="Pesquisa de Paises" />
     <v-row justify="center" class="mt-3 mb-5">
       <v-col cols="4">
         <v-text-field
@@ -96,5 +95,6 @@ export default {
 .none-country-found {
   color: $secondary;
   font-size: 1.3rem;
+  
 }
 </style>
