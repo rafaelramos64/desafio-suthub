@@ -7,7 +7,9 @@ export default {
       const { data } = await this.$axios.get(payload)
       countries = data
 
-      context.commit('changeSearchedCountries', ...countries)
+      payload === '/all' ? context.commit('changeSearchedCountries', countries) :
+        context.commit('changeSearchedCountries', ...countries)
+        
     } catch (erro) {
       console.error(erro)
     }
