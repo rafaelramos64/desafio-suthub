@@ -5,6 +5,8 @@ import actions from './actions'
 export const state = () => ({
   countries: [],
   borders: [],
+  countriesByRegionalBlock: [],
+  loadingCountries: false,
 })
 
 export default {

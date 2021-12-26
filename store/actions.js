@@ -23,4 +23,20 @@ export default {
       console.error(erro)
     }
   },
+
+  async searchCountriesByRegionalBlock (context, payload) {
+    const params = 'regionalbloc/' + payload
+
+    try {
+      context.commit('changeLoadingCountries', true)
+
+      const { data } = await this.$axios.get(params)
+
+      context.commit('changeCountriesByRegionalBlock', data)
+    } catch (erro) {
+      console.error(erro)
+    } finally {
+      context.commit('changeLoadingCountries', false)
+    }
+  },
 }
