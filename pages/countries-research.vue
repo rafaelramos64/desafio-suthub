@@ -95,5 +95,6 @@ export default {
 .none-country-found {
   color: $secondary;
   font-size: 1.3rem;
+  
 }
 </style>
