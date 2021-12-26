@@ -14,4 +14,8 @@ export default {
   changeLoadingCountries (state, payload) {
     state.loadingCountries = payload
   },
+
+  changeSelectedLanguage (state, payload) {
+    state.selectedLanguage = payload
+  }
 }
