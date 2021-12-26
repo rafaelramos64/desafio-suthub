@@ -3,10 +3,10 @@
     <v-card
       :elevation="hover ? 16 : 2"
       :class="{ 'on-hover': hover }"
-      class="mx-auto"
+      class="mx-auto card-country"
       max-width="344"
     >
-      <Flag fullWidth :country="country" />
+      <Flag class="flag" fullWidth :country="country" />
       
       <v-card-title>
         {{ country.name }}
