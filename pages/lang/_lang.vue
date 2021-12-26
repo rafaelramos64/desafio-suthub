@@ -8,8 +8,9 @@
 
     <v-row class="text-center">
       <v-col cols="12" class="d-flex justify-center align-center">
-        <h3 class="ml-2 mt-1 h3">Países que falam </h3>
-        <h4 class="ml-2 mt-2 capitalize-native-name">{{ getSelectedLanguage.nativeName }}</h4>
+        <h3 class="ml-2 mt-1 h3">
+          Países que falam <span class="capitalize-native-name">{{ getSelectedLanguage.nativeName }}</span>
+        </h3>
       </v-col>
 
       <v-col cols="4" v-for="country in getCountries" :key="country.name">
