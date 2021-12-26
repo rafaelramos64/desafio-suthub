@@ -7,7 +7,6 @@ export const state = () => ({
   borders: [],
   countriesByRegionalBlock: [],
   loadingCountries: false,
-  selectedLanguage: [],
 })
 
 export default {
