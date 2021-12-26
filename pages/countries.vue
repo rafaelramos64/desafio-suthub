@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Country',
@@ -12,6 +13,14 @@ export default {
     return {
     }
   },
+
+  mounted () {
+    this.searchCountries('name/brazil')
+  },
+
+  methods: {
+    ...mapActions(['searchCountries']),
+  }
 }
 </script>
 

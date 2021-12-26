@@ -1,11 +1,11 @@
 <template>
   <v-img
     class="mb-3"
-    :class="selectedCountry ? 'selected-country' : 'country-img change-cursor'"
+    :class="selectedCountry ? 'selected-country' : 'country-img'"
     :src="country.flag"
     :lazy-src="country.flag"
     :alt="country.name"
-    max-width="316"
+    :width="fullWidth ? '100%' : '316'"
   >
     <template v-slot:placeholder>
       <v-row
@@ -31,6 +31,9 @@ export default {
     selectedCountry: {
       type: Boolean,
       default: false,
+    },
+    fullWidth: {
+      type: Boolean, default: false,
     }
   },
 }
@@ -40,7 +43,7 @@ export default {
 .country-img {
   width: 316px;
   height: 181px;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25));
   padding: 0;
   object-fit: contain;
 }
@@ -65,9 +68,5 @@ export default {
       max-width: 316px;
       max-height: 181px;
   }
-}
-
-.change-cursor {
-  cursor: pointer;
 }
 </style>
