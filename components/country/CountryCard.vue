@@ -60,6 +60,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'CountryCard',
   props: {
@@ -70,6 +72,10 @@ export default {
       show: false,
     }
   },
+
+  methods: {
+    ...mapActions(['saveSelectedLanguage']),
+  }
 }
 </script>
 
