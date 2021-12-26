@@ -3,10 +3,10 @@
     <v-card
       :elevation="hover ? 16 : 2"
       :class="{ 'on-hover': hover }"
-      class="mx-auto card-country"
+      class="mx-auto"
       max-width="344"
     >
-      <Flag class="flag-img" fullWidth :country="country" />
+      <Flag fullWidth :country="country" />
       
       <v-card-title>
         {{ country.name }}
@@ -14,17 +14,8 @@
 
       <v-card-subtitle>
         Línguas <br />
-        <v-btn
-          text
-          color="terciary"
-          class="language pa-0"
-          v-for="(lang, key) in country.languages"
-          :key="key"
-          nuxt
-          :to="'lang/' + lang.iso639_1"
-        >
-          <span @click="saveSelectedLanguage(lang)">{{ lang.name }},</span>
-          
+        <v-btn text color="terciary" v-for="(lang, key) in country.languages" :key="key" class="language pa-0">  
+          {{ lang.name }},
         </v-btn>
       </v-card-subtitle>
 
@@ -61,8 +52,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
   name: 'CountryCard',
   props: {
@@ -73,10 +62,6 @@ export default {
       show: false,
     }
   },
-
-  methods: {
-    ...mapActions(['saveSelectedLanguage']),
-  }
 }
 </script>
 

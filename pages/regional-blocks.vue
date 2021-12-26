@@ -98,7 +98,7 @@ export default {
     },
 
     spreadCordinates (cordinate) {
-      return cordinate !== undefined ? cordinate.join('') : ''
+      return cordinate.join('')
     }
   }
 }
@@ -109,6 +109,11 @@ export default {
 
 ul {
   list-style-type: none;
+}
+
+.regional-blocks-title {
+  color: $secondary;
+  font-size: 1.6rem;
 }
 
 .reginal-blocks {

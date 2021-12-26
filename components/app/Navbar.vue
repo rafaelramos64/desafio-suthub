@@ -4,7 +4,7 @@
     dark
     height="100"
     max-height="100"
-    class="pl-7 pr-8 navbar-shadow"
+    class="pl-7 pr-8"
   >
     <v-toolbar-title>
       <NuxtLink to="/">
@@ -40,10 +40,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.navbar-shadow {
-  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
-}
-
 .btn {
   text-transform: none;
 }
