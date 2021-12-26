@@ -14,8 +14,16 @@
 
       <v-card-subtitle>
         Línguas <br />
-        <v-btn text color="terciary" v-for="(lang, key) in country.languages" :key="key" class="language pa-0">  
-          {{ lang.name }},
+        <v-btn
+          text
+          color="terciary"
+          class="language pa-0"
+          v-for="(lang, key) in country.languages"
+          :key="key"
+          nuxt
+          :to="'lang/' + lang.iso639_1"
+        >
+          <span @click="saveSelectedLanguage(lang)">{{ lang.name }}, </span>
         </v-btn>
       </v-card-subtitle>
 
