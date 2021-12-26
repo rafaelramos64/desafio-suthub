@@ -42,7 +42,7 @@ export default {
     }
   },
 
-  saveSelectedLanguage conte) {
-
+  saveSelectedLanguage (context, payload) {
+    context.commit('changeSelectedLanguage', payload)
   }
 }
