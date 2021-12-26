@@ -7,24 +7,20 @@ export default {
       const { data } = await this.$axios.get(payload)
       countries = data
 
-      payload === 'name/brazil' ?
-        context.commit('changeSearchedCountries', ...countries) :
-        context.commit('changeSearchedCountries', countries)
+      payload === '/all' ? context.commit('changeSearchedCountries', countries) :
+        context.commit('changeSearchedCountries', ...countries)
         
     } catch (erro) {
       console.error(erro)
     }
 
     try {
-      if (payload === 'name/brazil') {
-        let paramsToGetBorders = countries[0]
-        paramsToGetBorders = paramsToGetBorders.borders.join()
+      let paramsToGetBorders = countries[0]
+      paramsToGetBorders = paramsToGetBorders.borders.join()
 
-        const { data } = await this.$axios.get(`/alpha?codes=${paramsToGetBorders}`)
+      const { data } = await this.$axios.get(`/alpha?codes=${paramsToGetBorders}`)
 
-        context.commit('changeBorders', data)
-      }
-      
+      context.commit('changeBorders', data)
     } catch (erro) {
       console.error(erro)
     }
@@ -45,8 +41,4 @@ export default {
       context.commit('changeLoadingCountries', false)
     }
   },
-
-  saveSelectedLanguage (context, payload) {
-    context.commit('changeSelectedLanguage', payload)
-  }
 }
