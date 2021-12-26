@@ -1,5 +1,5 @@
 <template>
-  <PageTitle title="Bem-vindo à Home" />
+  <PageTitle title="Bem-vindo à Home"  />
 </template>
 
 <script>
