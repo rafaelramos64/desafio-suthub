@@ -95,6 +95,7 @@ export default {
 
 .flag-img {
   filter: brightness(90%) drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25)) !important;
+  
 }
 .card-country:hover .flag-img {
   transition: all 0.3s linear;
