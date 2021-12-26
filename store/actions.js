@@ -7,20 +7,24 @@ export default {
       const { data } = await this.$axios.get(payload)
       countries = data
 
-      payload === '/all' ? context.commit('changeSearchedCountries', countries) :
-        context.commit('changeSearchedCountries', ...countries)
+      payload === 'name/brazil' ?
+        context.commit('changeSearchedCountries', ...countries) :
+        context.commit('changeSearchedCountries', countries)
         
     } catch (erro) {
       console.error(erro)
     }
 
     try {
-      let paramsToGetBorders = countries[0]
-      paramsToGetBorders = paramsToGetBorders.borders.join()
+      if (payload === 'name/brazil') {
+        let paramsToGetBorders = countries[0]
+        paramsToGetBorders = paramsToGetBorders.borders.join()
 
-      const { data } = await this.$axios.get(`/alpha?codes=${paramsToGetBorders}`)
+        const { data } = await this.$axios.get(`/alpha?codes=${paramsToGetBorders}`)
 
-      context.commit('changeBorders', data)
+        context.commit('changeBorders', data)
+      }
+      
     } catch (erro) {
       console.error(erro)
     }

@@ -6,7 +6,7 @@
       class="mx-auto card-country"
       max-width="344"
     >
-      <Flag class="flag" fullWidth :country="country" />
+      <Flag class="flag-img" fullWidth :country="country" />
       
       <v-card-title>
         {{ country.name }}
