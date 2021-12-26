@@ -17,31 +17,25 @@
     <v-btn text tile color="secondary">
       Ir para Formluário
     </v-btn>
-    <v-btn text tile color="secondary" nuxt to="/countries" @click="goToCountriesPage()" class="mx-1">
+    <v-btn text tile color="secondary" nuxt to="/countries" class="mx-1">
       Brasil
     </v-btn>
     <v-btn text tile color="secondary" nuxt to="/regional-blocks">
       Blocos Regionais
     </v-btn>
+    <v-btn text tile color="secondary" nuxt to="/countries-research">
+      Buscar Países
+    </v-btn>
   </v-app-bar>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 
 export default {
   name: 'Navbar',
   data () {
     return {}
   },
-
-  methods: {
-    ...mapActions(['searchCountries']),
-
-    goToCountriesPage () {
-      this.searchCountries('name/brazil')
-    },
-  }
 }
 </script>
 

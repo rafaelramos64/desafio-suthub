@@ -141,4 +141,9 @@ ul {
   max-height: 350px;
   overflow: auto
 }
+
+::-webkit-scrollbar {
+  width: 6px !important;
+  background-color: #f8f8f8 !important;
+}
 </style>
