@@ -2,7 +2,7 @@
   <div>
     <v-row justify="center">
       <v-col cols="3">
-        <h3 class="mt-3 mb-5 page-tittle">Blocos Regionais</h3>
+        <PageTitle title="Blocos Regionais" />
         
         <ul class="text-left d-flex justify-center">
           <li v-for="(block, index) in regionalBlocks" :key="index" @click="activeRegionalBlockBtn(block)">

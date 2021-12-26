@@ -2,8 +2,7 @@
   <div>
     <v-row justify="center" class="mt-3 mb-5">
       <v-col cols="6" class="d-flex justify-center align-center">
-        <h2 class="h2 page-tittle">Lingua Seleconada: </h2>
-        <h3 class="ml-2 mt-1">{{ getSelectedLanguage.name }}</h3>
+        <PageTitle title="Lingua Seleconada" :subtitle="getSelectedLanguage.name"/>
       </v-col>
     </v-row>
 
@@ -45,10 +44,6 @@ export default {
 
 <style scoped lang="scss">
 @import '~assets/scss/main.scss';
-
-.h2, .h3 {
-  color: $primary;
-}
 
 .capitalize-native-name {
   text-transform: capitalize;
