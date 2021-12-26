@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-row justify="center" class="mt-3 mb-5">
+    <v-row justify="center">
       <v-col cols="6" class="d-flex justify-center align-center">
         <PageTitle title="Lingua Seleconada" :subtitle="getSelectedLanguage.name"/>
       </v-col>
