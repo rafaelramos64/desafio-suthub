@@ -2,7 +2,7 @@
   <v-app dark>
     <Navbar />
 
-    <v-main>
+    <v-main class="bg-main">
       <v-container fluid>
         <Nuxt />
       </v-container>
@@ -17,3 +17,9 @@ export default {
   name: 'DefaultLayout',
 }
 </script>
+
+<style scoped>
+.bg-main {
+  background-color: #F9FAFF;
+}
+</style>

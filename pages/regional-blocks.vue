@@ -2,7 +2,7 @@
   <div>
     <v-row justify="center">
       <v-col cols="3">
-        <v-card-title class="justify-center regional-blocks-title my-3">Blocos Regionais</v-card-title>
+        <h3 class="mt-3 mb-5 page-tittle">Blocos Regionais</h3>
         
         <ul class="text-left d-flex justify-center">
           <li v-for="(block, index) in regionalBlocks" :key="index" @click="activeRegionalBlockBtn(block)">
@@ -98,7 +98,7 @@ export default {
     },
 
     spreadCordinates (cordinate) {
-      return cordinate.join('')
+      return cordinate !== undefined ? cordinate.join('') : ''
     }
   }
 }
@@ -109,11 +109,6 @@ export default {
 
 ul {
   list-style-type: none;
-}
-
-.regional-blocks-title {
-  color: $secondary;
-  font-size: 1.6rem;
 }
 
 .reginal-blocks {

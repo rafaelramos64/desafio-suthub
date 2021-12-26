@@ -1,0 +1,56 @@
+<template>
+  <div>
+    <v-row justify="center" class="mt-3 mb-5">
+      <v-col cols="6" class="d-flex justify-center align-center">
+        <h2 class="h2 page-tittle">Lingua Seleconada: </h2>
+        <h3 class="ml-2 mt-1">{{ getSelectedLanguage.name }}</h3>
+      </v-col>
+    </v-row>
+
+    <v-row class="text-center">
+      <v-col cols="12" class="d-flex justify-center align-center">
+        <h3 class="ml-2 mt-1 h3">Países que falam </h3>
+        <h4 class="ml-2 mt-2 capitalize-native-name">{{getSelectedLanguage.nativeName }}</h4>
+      </v-col>
+
+      <v-col cols="4" v-for="country in getCountries" :key="country.name">
+        {{ country.name }}
+      </v-col>
+    </v-row>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex'
+
+export default {
+  name: 'Lang',
+  data () {
+    return {}
+  },
+
+  mounted () {
+    this.searchCountries(this.$route.path)
+  },
+
+  computed: {
+    ...mapGetters(['getCountries', 'getSelectedLanguage']),
+  },
+
+  methods: {
+    ...mapActions(['searchCountries']),
+  }
+}
+</script>
+
+<style scoped lang="scss">
+@import '~assets/scss/main.scss';
+
+.h2, .h3 {
+  color: $primary;
+}
+
+.capitalize-native-name {
+  text-transform: capitalize;
+}
+</style>
