@@ -23,7 +23,7 @@
           nuxt
           :to="'lang/' + lang.iso639_1"
         >
-          <span @click="saveSelectedLanguage(lang)">{{ lang.name }},</span>
+          <span @click="saveSelectedLanguage(lang)">{{ lang.name }}, </span>
           
         </v-btn>
       </v-card-subtitle>
