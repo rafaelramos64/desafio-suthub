@@ -2,12 +2,12 @@
   <v-tooltip top color="terciary">
     <template v-slot:activator="{ on, attrs }">
       <v-btn
-        class="mx-1 mb-1"
+        class="mx-2 mb-2"
         rounded text color="primary"
         v-bind="attrs"
         v-on="on"
-        :class="btnActive === block.text ? 'regional-block-active' : 'regional-block'"
-        @click="activeRegionalBlockBtn(block.text)"
+        :class="btnActive.text === block.text ? 'regional-block-active' : 'regional-block'"
+        
       >
         {{ block.text }}
       </v-btn>
@@ -17,27 +17,13 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 
 export default {
+  name: 'RegionalBlockBtn',
   props: {
-    block: { type: [], default: ''}
+    block: { type: [], default: '' },
+    btnActive: { type: '', default: '' },
   },
-
-  data () {
-    return {
-      btnActive: ''
-    }
-  },
-
-  methods: {
-    ...mapActions(['searchCountriesByRegionalBlock']),
-
-    activeRegionalBlockBtn (block) {
-      this.btnActive = block
-      this.searchCountriesByRegionalBlock(block)
-    },
-  }
 }
 </script>
 
