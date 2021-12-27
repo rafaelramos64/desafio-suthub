@@ -100,7 +100,7 @@
           </v-row>
 
           <v-row>
-            <v-col cols="12" sm="6">
+            <v-col cols="12" :sm="petRace === 'Outro' ? '4' : '6'">
               <v-select
                 v-model="petSpecie"
                 :items="species"
@@ -111,7 +111,7 @@
                 @blur="$v.petSpecie.$touch()"
               />
             </v-col>
-            <v-col v-if="petSpecie !== null" cols="12" sm="6">
+            <v-col v-if="petSpecie !== null" cols="12" :sm="petRace === 'Outro' ? '4' : '6'">
               <v-select
                 v-model="petRace"
                 :items="petSpecie === 'Cão' ? dogRaces : catRaces"
@@ -119,6 +119,17 @@
                 :label="petSpecie === 'Cão' ? 'Raça do Cão' : 'Raça do Gato'"
                 @change="$v.petRace.$touch()"
                 @blur="$v.petRace.$touch()"
+              />
+            </v-col>
+
+            <v-col v-if="petRace === 'Outro'" cols="12" sm="4">
+              <v-text-field
+                v-model="otherPetRace"
+                :error-messages="otherPetRaceErrors"
+                label="Informe a Raça"
+                :placeholder="petSpecie === 'Cão' ? 'Informe a raça do seu cão' : 'Informe a raça do seu gato'"
+                @change="$v.otherPetRace.$touch()"
+                @blur="$v.otherPetRace.$touch()"
               />
             </v-col>
           </v-row>
@@ -177,6 +188,7 @@ export default {
     email: { required, email },
     petSpecie: { required },
     petRace: { required },
+    otherPetRace: { required },
     checkbox: {
       checked (val) {
         return val
@@ -206,15 +218,18 @@ export default {
         'Pinscher',
         'Labrador',
         'Shiba Inu',
-        'Vira-latas'
+        'Vira-latas',
+        'Outro'
       ],
       catRaces: [
         'Persa',
         'Siamês',
         'Maine Coon',
         'Ragdoll',
-        'Sphynx'
+        'Sphynx',
+        'Outro'
       ],
+      otherPetRace: '',
       checkbox: false,
     }
   },
@@ -263,6 +278,13 @@ export default {
       const errors = []
       if (!this.$v.petRace.$dirty) return errors
       !this.$v.petRace.required && errors.push('A raça do pet é obrigatório.')
+      return errors
+    },
+
+    otherPetRaceErrors () {
+      const errors = []
+      if (!this.$v.otherPetRace.$dirty) return errors
+      !this.$v.otherPetRace.required && errors.push('A raça do pet é obrigatório.')
       return errors
     },
 
