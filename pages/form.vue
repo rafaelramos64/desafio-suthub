@@ -16,7 +16,7 @@
                 :error-messages="nameErrors"
                 label="Nome*"
                 placeholder="Informe seu nome"
-                prepend-icon="mdi-account-tie"
+                prepend-inner-icon="mdi-account-tie"
                 required
                 color="terciary"
                 @input="$v.name.$touch()"
@@ -29,8 +29,8 @@
                 v-model="surname"
                 :error-messages="surnameErrors"
                 label="Sobrenome*"
-                placeholder="Informe segundo nome e sobrenome"
-                prepend-icon="mdi-account-tie"
+                placeholder="Informe o seu sobrenome completo"
+                prepend-inner-icon="mdi-account-tie"
                 required
                 color="terciary"
                 @input="$v.surname.$touch()"
@@ -40,14 +40,47 @@
           </v-row>
 
           <v-row>
-            <v-col cols="12" sm="6">
-               <v-text-field
+            <v-col cols="12" sm="6" md="4">
+              <v-menu
+                v-model="birthDate.menu"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+                color="terciary"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="birthDate.date"
+                    label="Data de Nascimento*"
+                    prepend-inner-icon="mdi-calendar-month"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    :error-messages="birthDateErrors"
+                    required
+                    color="terciary"
+                    header-color="primary"
+                    @input="$v.birthDate.date.$touch()"
+                    @blur="$v.birthDate.date.$touch()"
+                  />
+                </template>
+                <v-date-picker
+                  v-model="birthDate.date"
+                  @input="birthDate.menu = false"
+                  color="terciary"
+                ></v-date-picker>
+              </v-menu>
+            </v-col>
+
+            <v-col cols="12" sm="6" md="4">
+              <v-text-field
                 v-model="CPF"
                 :error-messages="cpfErrors"
                 label="CPF*"
                 placeholder="Informe seu cpf"
-                prepend-icon="mdi-card-account-details"
-                number
+                prepend-inner-icon="mdi-card-account-details"
                 v-mask="'###.###.###-##'"
                 required
                 color="terciary"
@@ -64,38 +97,25 @@
               </v-text-field>
             </v-col>
 
-            <v-col cols="12" sm="6">
-              <v-menu
-                v-model="birthDate.menu"
-                :close-on-content-click="false"
-                :nudge-right="40"
-                transition="scale-transition"
-                offset-y
-                min-width="auto"
+            <v-col cols="12" sm="6" md="4">
+              <v-text-field
+                v-model="income"
+                :error-messages="incomeErrors"
+                label="Renda Mensal*"
+                placeholder="Informe sua renda"
+                prepend-inner-icon="mdi-currency-brl"
                 color="terciary"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    v-model="birthDate.date"
-                    label="Data de Nascimento*"
-                    prepend-icon="mdi-calendar-month"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
-                    :error-messages="birthDateErrors"
-                    required
-                    color="terciary"
-                    header-color="primary"
-                    @input="$v.birthDate.date.$touch()"
-                    @blur="$v.birthDate.date.$touch()"
-                  ></v-text-field>
-                </template>
-                <v-date-picker
-                  v-model="birthDate.date"
-                  @input="birthDate.menu = false"
-                  color="terciary"
-                ></v-date-picker>
-              </v-menu>
+                type="number"
+                required
+                @input="$v.income.$touch()"
+                @blur="$v.income.$touch()"
+              />
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col>
+              
             </v-col>
           </v-row>
 
@@ -105,7 +125,9 @@
                 v-model="petSpecie"
                 :items="species"
                 :error-messages="petSpecieErrors"
-                label="Espécie do Pet"
+                label="Espécie do Pet*"
+                prepend-inner-icon="mdi-dog"
+                color="terciary"
                 required
                 @change="$v.petSpecie.$touch()"
                 @blur="$v.petSpecie.$touch()"
@@ -116,7 +138,10 @@
                 v-model="petRace"
                 :items="petSpecie === 'Cão' ? dogRaces : catRaces"
                 :error-messages="petRaceErrors"
-                :label="petSpecie === 'Cão' ? 'Raça do Cão' : 'Raça do Gato'"
+                :label="petSpecie === 'Cão' ? 'Raça do Cão*' : 'Raça do Gato*'"
+                :prepend-inner-icon="petSpecie === 'Cão' ? 'mdi-dog-side' : 'mdi-cat'"
+                color="terciary"
+                required
                 @change="$v.petRace.$touch()"
                 @blur="$v.petRace.$touch()"
               />
@@ -126,30 +151,16 @@
               <v-text-field
                 v-model="otherPetRace"
                 :error-messages="otherPetRaceErrors"
-                label="Informe a Raça"
+                label="Informe a Raça*"
                 :placeholder="petSpecie === 'Cão' ? 'Informe a raça do seu cão' : 'Informe a raça do seu gato'"
+                :prepend-inner-icon="petSpecie === 'Cão' ? 'mdi-dog-side' : 'mdi-cat'"
+                color="terciary"
+                required
                 @change="$v.otherPetRace.$touch()"
                 @blur="$v.otherPetRace.$touch()"
               />
             </v-col>
           </v-row>
-          <!-- <v-text-field
-            v-model="email"
-            :error-messages="emailErrors"
-            label="E-mail"
-            required
-            @input="$v.email.$touch()"
-            @blur="$v.email.$touch()"
-          ></v-text-field>
-
-          <v-checkbox
-            v-model="checkbox"
-            :error-messages="checkboxErrors"
-            label="Do you agree?"
-            required
-            @change="$v.checkbox.$touch()"
-            @blur="$v.checkbox.$touch()"
-          ></v-checkbox> -->
 
          <v-row justify="end">
            <v-col cols="4" class="text-right">
@@ -169,7 +180,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, minLength, email, between } from 'vuelidate/lib/validators'
+import { required, minLength, between } from 'vuelidate/lib/validators'
 import { cpf } from 'cpf-cnpj-validator'
 
 export default {
@@ -185,7 +196,10 @@ export default {
       }
     },
     CPF: { required },
-    email: { required, email },
+    income: {
+      required,
+      between: between(1000, 999999999999999)
+    },
     petSpecie: { required },
     petRace: { required },
     otherPetRace: { required },
@@ -206,7 +220,7 @@ export default {
       },
       CPF: '',
       validCPF: undefined,
-      email: '',
+      income: null,
       petSpecie: null,
       species: [
         'Cão',
@@ -230,7 +244,6 @@ export default {
         'Outro'
       ],
       otherPetRace: '',
-      checkbox: false,
     }
   },
 
@@ -247,7 +260,7 @@ export default {
       const errors = []
       if (!this.$v.surname.$dirty) return errors
       !this.$v.surname.minLength && errors.push('Para Sobrenome, é preciso pelo menos 4 caracteres.')
-      !this.$v.surname.required && errors.push('O Segundo nome e sobrenome é obrigatório.')
+      !this.$v.surname.required && errors.push('O Sobrenome é obrigatório.')
       return errors
     },
 
@@ -255,7 +268,7 @@ export default {
       const errors = []
       if (!this.$v.birthDate.date.$dirty) return errors
       !this.$v.birthDate.date.between && errors.push('A idade mínima é 18 e a máxima é 65.')
-      !this.$v.birthDate.date.required && errors.push('O Data de Nascimento é obrigatório.')
+      !this.$v.birthDate.date.required && errors.push('A Data de Nascimento é obrigatória.')
       return errors
     },
 
@@ -267,39 +280,36 @@ export default {
       return errors
     },
 
+    incomeErrors () {
+      const errors = []
+      if (!this.$v.income.$dirty) return errors
+      !this.$v.income.required && errors.push('A renda mensal é obrigatória.')
+      !this.$v.income.between &&
+        errors.push(this.income >= 1000 && this.income >= 999999999999999 ?
+          'A renda informada não é aceita como válida.' : 'A renda mínima é R$ 1.000,00.' )
+      return errors
+    },
+
     petSpecieErrors () {
       const errors = []
       if (!this.$v.petSpecie.$dirty) return errors
-      !this.$v.petSpecie.required && errors.push('A espécie do pet é obrigatório.')
+      !this.$v.petSpecie.required && errors.push('A espécie do pet é obrigatória.')
       return errors
     },
 
     petRaceErrors () {
       const errors = []
       if (!this.$v.petRace.$dirty) return errors
-      !this.$v.petRace.required && errors.push('A raça do pet é obrigatório.')
+      !this.$v.petRace.required &&
+        errors.push(this.petSpecie === 'Cão' ? 'A raça do cão é obrigatória.' : 'A raça do gato é obrigatória.')
       return errors
     },
 
     otherPetRaceErrors () {
       const errors = []
       if (!this.$v.otherPetRace.$dirty) return errors
-      !this.$v.otherPetRace.required && errors.push('A raça do pet é obrigatório.')
-      return errors
-    },
-
-    emailErrors () {
-      const errors = []
-      if (!this.$v.email.$dirty) return errors
-      !this.$v.email.email && errors.push('Must be valid e-mail')
-      !this.$v.email.required && errors.push('E-mail is required')
-      return errors
-    },
-
-    checkboxErrors () {
-      const errors = []
-      if (!this.$v.checkbox.$dirty) return errors
-      !this.$v.checkbox.checked && errors.push('You must agree to continue!')
+      !this.$v.otherPetRace.required &&
+        errors.push(this.petSpecie === 'Cão' ? 'A raça do cão é obrigatória.' : 'A raça do gato é obrigatória.')
       return errors
     },
   },
