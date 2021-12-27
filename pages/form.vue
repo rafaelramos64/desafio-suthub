@@ -10,7 +10,7 @@
       <v-col cols="8">
         <form>
           <v-row>
-            <v-col cols="12" sm="6" md="4">
+            <v-col cols="12" sm="6">
               <v-text-field
                 v-model="name"
                 :error-messages="nameErrors"
@@ -24,7 +24,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6" md="4">
+            <v-col cols="12" sm="6">
               <v-text-field
                 v-model="surname"
                 :error-messages="surnameErrors"
@@ -37,9 +37,34 @@
                 @blur="$v.surname.$touch()"
               />
             </v-col>
+          </v-row>
 
-            <v-col cols="12" sm="6" md="4"
-            >
+          <v-row>
+            <v-col cols="12" sm="6">
+               <v-text-field
+                v-model="CPF"
+                :error-messages="cpfErrors"
+                label="CPF*"
+                placeholder="Informe seu cpf"
+                prepend-icon="mdi-card-account-details"
+                number
+                v-mask="'###.###.###-##'"
+                required
+                color="terciary"
+                @input="$v.CPF.$touch()"
+                @blur="$v.CPF.$touch()"
+              >
+                <v-icon v-if="validCPF === true" slot="append" color="terciary">
+                  mdi-check-bold
+                </v-icon>
+                <v-icon v-if="validCPF === false" slot="append" color="error">
+                  mdi-close-thick
+                </v-icon>
+
+              </v-text-field>
+            </v-col>
+
+            <v-col cols="12" sm="6">
               <v-menu
                 v-model="birthDate.menu"
                 :close-on-content-click="false"
@@ -76,27 +101,25 @@
 
           <v-row>
             <v-col cols="12" sm="6">
-               <v-text-field
-                v-model="CPF"
-                :error-messages="cpfErrors"
-                label="CPF*"
-                placeholder="Informe seu cpf"
-                prepend-icon="mdi-card-account-details"
-                number
-                v-mask="'###.###.###-##'"
+              <v-select
+                v-model="petSpecie"
+                :items="species"
+                :error-messages="petSpecieErrors"
+                label="Espécie do Pet"
                 required
-                color="terciary"
-                @input="$v.CPF.$touch()"
-                @blur="$v.CPF.$touch()"
-              >
-                <v-icon v-if="validCPF === true" slot="append" color="terciary">
-                  mdi-check-bold
-                </v-icon>
-                <v-icon v-if="validCPF === false" slot="append" color="error">
-                  mdi-close-thick
-                </v-icon>
-
-              </v-text-field>
+                @change="$v.petSpecie.$touch()"
+                @blur="$v.petSpecie.$touch()"
+              />
+            </v-col>
+            <v-col v-if="petSpecie !== null" cols="12" sm="6">
+              <v-select
+                v-model="petRace"
+                :items="petSpecie === 'Cão' ? dogRaces : catRaces"
+                :error-messages="petRaceErrors"
+                :label="petSpecie === 'Cão' ? 'Raça do Cão' : 'Raça do Gato'"
+                @change="$v.petRace.$touch()"
+                @blur="$v.petRace.$touch()"
+              />
             </v-col>
           </v-row>
           <!-- <v-text-field
@@ -107,16 +130,6 @@
             @input="$v.email.$touch()"
             @blur="$v.email.$touch()"
           ></v-text-field>
-
-          <v-select
-            v-model="select"
-            :items="items"
-            :error-messages="selectErrors"
-            label="Item"
-            required
-            @change="$v.select.$touch()"
-            @blur="$v.select.$touch()"
-          ></v-select>
 
           <v-checkbox
             v-model="checkbox"
@@ -129,10 +142,10 @@
 
          <v-row justify="end">
            <v-col cols="4" class="text-right">
-              <v-btn class="mr-4" @click="submit" color="primary" outlined>
+              <v-btn class="mr-4 save-btn" @click="submit" color="primary" outlined>
                 Salvar
               </v-btn>
-              <v-btn @click="clear" color="error" outlined>
+              <v-btn class="clear-btn" @click="clear" color="error" outlined>
                 Limpar
               </v-btn>
            </v-col>
@@ -162,7 +175,8 @@ export default {
     },
     CPF: { required },
     email: { required, email },
-    select: { required },
+    petSpecie: { required },
+    petRace: { required },
     checkbox: {
       checked (val) {
         return val
@@ -181,12 +195,25 @@ export default {
       CPF: '',
       validCPF: undefined,
       email: '',
-      select: null,
-      items: [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4',
+      petSpecie: null,
+      species: [
+        'Cão',
+        'Gato',
+      ],
+      petRace: null,
+      dogRaces: [
+        'Poodle',
+        'Pinscher',
+        'Labrador',
+        'Shiba Inu',
+        'Vira-latas'
+      ],
+      catRaces: [
+        'Persa',
+        'Siamês',
+        'Maine Coon',
+        'Ragdoll',
+        'Sphynx'
       ],
       checkbox: false,
     }
@@ -225,6 +252,20 @@ export default {
       return errors
     },
 
+    petSpecieErrors () {
+      const errors = []
+      if (!this.$v.petSpecie.$dirty) return errors
+      !this.$v.petSpecie.required && errors.push('A espécie do pet é obrigatório.')
+      return errors
+    },
+
+    petRaceErrors () {
+      const errors = []
+      if (!this.$v.petRace.$dirty) return errors
+      !this.$v.petRace.required && errors.push('A raça do pet é obrigatório.')
+      return errors
+    },
+
     emailErrors () {
       const errors = []
       if (!this.$v.email.$dirty) return errors
@@ -239,18 +280,15 @@ export default {
       !this.$v.checkbox.checked && errors.push('You must agree to continue!')
       return errors
     },
-
-    selectErrors () {
-      const errors = []
-      if (!this.$v.select.$dirty) return errors
-      !this.$v.select.required && errors.push('Item is required')
-      return errors
-    },
   },
 
   watch: {
     CPF () {
       if (this.CPF.length === 14) this.validCPF = cpf.isValid(this.CPF)
+    },
+
+    petSpecie () {
+      this.petRace = ''
     }
   },
 
@@ -274,5 +312,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '~assets/scss/main.scss';
 
+.save-btn:hover {
+  background-color: $primary !important;
+  border-color: $primary !important;
+  color: #fff !important;
+  box-shadow: 0px 8px 10px -5px rgb(0 0 0 / 20%),
+    0px 16px 24px 2px rgb(0 0 0 / 14%), 0px 6px 30px 5px rgb(0 0 0 / 12%)
+}
+
+.clear-btn:hover {
+  background-color: $error !important;
+  border-color: $error !important;
+  color: #fff !important;
+  box-shadow: 0px 8px 10px -5px rgb(0 0 0 / 20%),
+    0px 16px 24px 2px rgb(0 0 0 / 14%), 0px 6px 30px 5px rgb(0 0 0 / 12%)
+}
 </style>
