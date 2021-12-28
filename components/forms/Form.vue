@@ -109,7 +109,7 @@
           label="CEP*"
           placeholder="Informe seu CEP"
           prepend-inner-icon="mdi-mailbox"
-          v-mask="'##.###-###'"
+          v-mask="'#####-###'"
           required
           color="terciary"
           @input="$v.address.CEP.$touch()"
@@ -281,7 +281,7 @@ export default {
     address: {
       CEP: {
         required,
-        minLength: minLength(10),
+        minLength: minLength(9),
       },
       city: {
         required,
@@ -409,7 +409,7 @@ export default {
       const errors = []
       if (!this.$v.address.CEP.$dirty) return errors
       !this.$v.address.CEP.required && errors.push('O CEP é obrigatório.')
-      !this.$v.address.CEP.minLength && errors.push('Informe no mínimo 10 caracteres.')
+      !this.$v.address.CEP.minLength && errors.push('Informe ao menos 9 caracteres.')
       return errors
     },
 
@@ -417,7 +417,7 @@ export default {
       const errors = []
       if (!this.$v.address.city.$dirty) return errors
       !this.$v.address.city.required && errors.push('A cidade é obrigatória.')
-      !this.$v.address.city.minLength && errors.push('Informe no mínimo 5 caracteres.')
+      !this.$v.address.city.minLength && errors.push('Informe ao menos 5 caracteres.')
       return errors
     },
 
@@ -426,7 +426,7 @@ export default {
       if (!this.$v.address.state.$dirty) return errors
       !this.$v.address.state.required && errors.push('O estado é obrigatório.')
       if (this.address.state !== 'Outro' && this.address.state !== 'outro') {
-        !this.$v.address.state.maxLength && errors.push('Infome apenas dois caracteres.')
+        !this.$v.address.state.maxLength && errors.push('Infome apenas 2 caracteres.')
       }
       return errors
     },
@@ -435,7 +435,7 @@ export default {
       const errors = []
       if (!this.$v.address.informState.$dirty) return errors
       !this.$v.address.informState.required && errors.push('O estado é obrigatório.')
-      !this.$v.address.informState.maxLength && errors.push('Infome apenas dois caracteres.')
+      !this.$v.address.informState.maxLength && errors.push('Infome apenas 2 caracteres.')
       return errors
     },
 
@@ -443,7 +443,7 @@ export default {
       const errors = []
       if (!this.$v.address.street.$dirty) return errors
       !this.$v.address.street.required && errors.push('A rua é obrigatória.')
-      !this.$v.address.street.minLength && errors.push('Informe no mínimo 5 caracteres.')
+      !this.$v.address.street.minLength && errors.push('Informe ao menos 5 caracteres.')
       return errors
     },
 
@@ -451,7 +451,7 @@ export default {
       const errors = []
       if (!this.$v.address.district.$dirty) return errors
       !this.$v.address.district.required && errors.push('O bairro é obrigatório.')
-      !this.$v.address.district.minLength && errors.push('Informe no mínimo 5 caracteres.')
+      !this.$v.address.district.minLength && errors.push('Informe ao menos 5 caracteres.')
       return errors
     },
 
