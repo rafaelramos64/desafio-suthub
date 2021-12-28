@@ -44,32 +44,29 @@
               <v-menu
                 v-model="birthDate.menu"
                 :close-on-content-click="false"
-                :nudge-right="40"
                 transition="scale-transition"
                 offset-y
+                max-width="290px"
                 min-width="auto"
                 color="terciary"
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                    v-model="birthDate.date"
+                    v-model="birthDate.dateFormatted"
+                    :error-messages="birthDateErrors"
                     label="Data de Nascimento*"
-                    prepend-inner-icon="mdi-calendar-month"
-                    readonly
+                    prepend-inner-icon="mdi-calendar"
+                    color="terciary"
                     v-bind="attrs"
                     v-on="on"
-                    :error-messages="birthDateErrors"
-                    required
-                    color="terciary"
-                    header-color="primary"
-                    @input="$v.birthDate.date.$touch()"
-                    @blur="$v.birthDate.date.$touch()"
-                  />
+                    @input="$v.birthDate.dateFormatted.$touch()"
+                    @blur="$v.birthDate.dateFormatted.$touch()"
+                  ></v-text-field>
                 </template>
                 <v-date-picker
                   v-model="birthDate.date"
-                  @input="birthDate.menu = false"
                   color="terciary"
+                  @input="birthDate.menu = false"
                 ></v-date-picker>
               </v-menu>
             </v-col>
@@ -79,7 +76,7 @@
                 v-model="CPF"
                 :error-messages="cpfErrors"
                 label="CPF*"
-                placeholder="Informe seu cpf"
+                placeholder="Informe seu CPF"
                 prepend-inner-icon="mdi-card-account-details"
                 v-mask="'###.###.###-##'"
                 required
@@ -113,9 +110,96 @@
             </v-col>
           </v-row>
 
+          <v-row justify="center">
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="address.CEP"
+                :error-messages="cepErrors"
+                label="CEP*"
+                placeholder="Informe seu CEP"
+                prepend-inner-icon="mdi-mailbox"
+                v-mask="'##.###-###'"
+                required
+                color="terciary"
+                @input="$v.address.CEP.$touch()"
+                @blur="$v.address.CEP.$touch()"
+              />
+            </v-col>
+          </v-row>
+
           <v-row>
-            <v-col>
-              
+            <v-col cols="12" :sm="address.state === 'Outro' ? '4' : '6'">
+              <v-text-field
+                v-model="address.city"
+                :error-messages="cityErrors"
+                label="Cidade*"
+                placeholder="Informe sua cidade"
+                prepend-inner-icon="mdi-city"
+                required
+                color="terciary"
+                @input="$v.address.city.$touch()"
+                @blur="$v.address.city.$touch()"
+              />
+            </v-col>
+
+            <v-col cols="12" :sm="address.state === 'Outro' ? '4' : '6'">
+              <v-combobox
+                v-model="address.state"
+                :error-messages="stateErrors"
+                label="Estado*"
+                placeholder="Informe seu estado"
+                prepend-inner-icon="mdi-billboard"
+                :items="statesList()"
+                color="terciary"
+                required
+                @input="$v.address.state.$touch()"
+                @blur="$v.address.state.$touch()"
+              />
+            </v-col>
+
+            <v-col v-if="address.state === 'Outro' " cols="12" sm="6" md="4">
+              <v-text-field
+                v-model="address.informState"
+                :error-messages="informStateErrors"
+                label="Informe o Estado*"
+                placeholder="Informe seu estado"
+                prepend-inner-icon="mdi-billboard"
+                :counter="2"
+                color="terciary"
+                required
+                @input="$v.address.informState.$touch()"
+                @blur="$v.address.informState.$touch()"
+              />
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="address.dictrict"
+                :error-messages="cepErrors"
+                label="Bairro*"
+                placeholder="Informe seu bairro"
+                prepend-inner-icon="mdi-home-group"
+                required
+                color="terciary"
+                @input="$v.address.dictrict.$touch()"
+                @blur="$v.address.dictrict.$touch()"
+              />
+            </v-col>
+
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="address.street"
+                :error-messages="streetErrors"
+                label="Rua*"
+                placeholder="Informe seu rua"
+                prepend-inner-icon="mdi-sign-real-estate"
+                required
+                color="terciary"
+                @input="$v.address.street.$touch()"
+                @blur="$v.address.street.$touch()"
+              />
             </v-col>
           </v-row>
 
@@ -164,7 +248,8 @@
 
          <v-row justify="end">
            <v-col cols="4" class="text-right">
-              <v-btn class="mr-4 save-btn" @click="submit" color="primary" outlined>
+             {{ !$v.errors }}
+              <v-btn @click.prevent.stop="saveFormData()" :disabled="$v.errors" class="mr-4 save-btn" type="submit" color="primary" outlined>
                 Salvar
               </v-btn>
               <v-btn class="clear-btn" @click="clear" color="error" outlined>
@@ -180,8 +265,9 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, minLength, between } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength, between } from 'vuelidate/lib/validators'
 import { cpf } from 'cpf-cnpj-validator'
+import States from '../assets/js/states'
 
 export default {
   mixins: [validationMixin],
@@ -190,7 +276,7 @@ export default {
     name: { required, minLength: minLength(4) },
     surname: { required, minLength: minLength(4) },
     birthDate: {
-      date: {
+      dateFormatted: {
         required,
         between: between(18, 65)
       }
@@ -200,6 +286,24 @@ export default {
       required,
       between: between(1000, 999999999999999)
     },
+    address: {
+      CEP: {
+        required,
+        minLength: minLength(10),
+      },
+      city: { required },
+      state: {
+        required,
+        maxLength: maxLength(2),
+      },
+      informState: {
+        required,
+        maxLength: maxLength(2),
+      },
+      street: { required },
+      dictrict: { required },
+    },
+
     petSpecie: { required },
     petRace: { required },
     otherPetRace: { required },
@@ -215,12 +319,20 @@ export default {
       name: '',
       surname: '',
       birthDate: {
-        date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        date: null,
+        dateFormatted: null,
         menu: false,
       },
       CPF: '',
       validCPF: undefined,
       income: null,
+      address: {
+        CEP: '',
+        city: '',
+        state: '',
+        street: '',
+        dictrict: '',
+      },
       petSpecie: null,
       species: [
         'Cão',
@@ -266,9 +378,9 @@ export default {
 
     birthDateErrors () {
       const errors = []
-      if (!this.$v.birthDate.date.$dirty) return errors
-      !this.$v.birthDate.date.between && errors.push('A idade mínima é 18 e a máxima é 65.')
-      !this.$v.birthDate.date.required && errors.push('A Data de Nascimento é obrigatória.')
+      if (!this.$v.birthDate.dateFormatted.$dirty) return errors
+      /* !this.$v.birthDate.date.between && errors.push('A idade mínima é 18 e a máxima é 65.') */
+      !this.$v.birthDate.dateFormatted.required && errors.push('A Data de Nascimento é obrigatória.')
       return errors
     },
 
@@ -287,6 +399,53 @@ export default {
       !this.$v.income.between &&
         errors.push(this.income >= 1000 && this.income >= 999999999999999 ?
           'A renda informada não é aceita como válida.' : 'A renda mínima é R$ 1.000,00.' )
+      return errors
+    },
+
+    cepErrors () {
+      const errors = []
+      if (!this.$v.address.CEP.$dirty) return errors
+      !this.$v.address.CEP.required && errors.push('O CEP é obrigatório.')
+      !this.$v.address.CEP.minLength && errors.push('É necessário no mínimo 10 caracteres.')
+      return errors
+    },
+
+    cityErrors () {
+      const errors = []
+      if (!this.$v.address.city.$dirty) return errors
+      !this.$v.address.city.required && errors.push('A cidade é obrigatória.')
+      return errors
+    },
+
+    stateErrors () {
+      const errors = []
+      if (!this.$v.address.state.$dirty) return errors
+      !this.$v.address.state.required && errors.push('O estado é obrigatório.')
+      if (this.address.state !== 'Outro') {
+        !this.$v.address.state.maxLength && errors.push('Infome apenas dois caracteres.')
+      }
+      return errors
+    },
+
+    informStateErrors () {
+      const errors = []
+      if (!this.$v.address.informState.$dirty) return errors
+      !this.$v.address.informState.required && errors.push('O estado é obrigatório.')
+      !this.$v.address.informState.maxLength && errors.push('Infome apenas dois caracteres.')
+      return errors
+    },
+
+    streetErrors () {
+      const errors = []
+      if (!this.$v.address.street.$dirty) return errors
+      !this.$v.address.street.required && errors.push('A rua é obrigatória.')
+      return errors
+    },
+
+    districtErrors () {
+      const errors = []
+      if (!this.$v.address.district.$dirty) return errors
+      !this.$v.address.district.required && errors.push('O bairro é obrigatório.')
       return errors
     },
 
@@ -315,18 +474,49 @@ export default {
   },
 
   watch: {
+
+    'birthDate.date': 'getFormattedDate',
+
     CPF () {
       if (this.CPF.length === 14) this.validCPF = cpf.isValid(this.CPF)
     },
 
     petSpecie () {
       this.petRace = ''
+    },
+
+    address: {
+      deep: true,
+      handler () {
+        this.address.informState = ''
+      }
     }
   },
 
   methods: {
-    submit () {
+    statesList () {
+      return States.states
+    },
+
+    formatDate (date) {
+      if (!date) return null
+
+      const [year, month, day] = date.split('-')
+      return `${day}/${month}/${year}`
+    },
+
+    getFormattedDate () {
+      this.birthDate.dateFormatted = this.formatDate(this.birthDate.date)
+    },
+
+    saveFormData () {
       this.$v.$touch()
+
+       console.log(this.$v.error)
+
+      if (!this.$v.errors) {
+        console.log("Save with sucessfull!")
+      }
     },
 
     clear () {
@@ -335,9 +525,7 @@ export default {
       this.surname = ''
       this.birthDate.name = new Date()
       this.cpf = ''
-      this.email = ''
       this.select = null
-      this.checkbox = false
     },
   },
 }

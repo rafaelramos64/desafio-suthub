@@ -3,7 +3,7 @@
     :absolute="!fixed"
     app
   >
-    <span>&copy; Copyleft || Rafael Ramos</span>
+    <span class="rafael-ramos">&copy; Copyleft || <b> Rafael Ramos </b> </span>
   </v-footer>
 </template>
 
@@ -18,3 +18,11 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+@import '~assets/scss/main.scss';
+
+.rafael-ramos {
+  color: $secondary !important;
+}
+</style>
