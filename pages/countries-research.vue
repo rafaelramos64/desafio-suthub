@@ -10,6 +10,7 @@
       <v-col cols="4">
         <v-text-field
           label="Buscar País"
+          placeholder="Digite um nome"
           color="terciary"
           autocomplete="off"
           :rules="rules"
