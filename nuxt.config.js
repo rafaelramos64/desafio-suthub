@@ -24,6 +24,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/vuelidate.client.js',
+    '~/plugins/vMask.client.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -31,8 +33,9 @@ export default {
     dirs: [
       '~/components',
       '~/components/app',
-      '~/components/country',
+      '~/components/countries',
       '~/components/buttons',
+      '~/components/forms'
     ]
   },
 

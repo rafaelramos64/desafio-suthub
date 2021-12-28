@@ -4,7 +4,7 @@
     dark
     height="100"
     max-height="100"
-    class="pl-7 pr-8"
+    class="pl-7 pr-8 nav-shadow"
   >
     <v-toolbar-title>
       <NuxtLink to="/">
@@ -14,13 +14,13 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn text tile color="secondary">
-      Ir para Formluário
+    <v-btn text tile color="secondary" nuxt to="/form">
+      Formluário
     </v-btn>
-    <v-btn text tile color="secondary" nuxt to="/countries" class="mx-1">
+    <v-btn text tile color="secondary" nuxt to="/country" class="mx-1">
       Brasil
     </v-btn>
-    <v-btn text tile color="secondary" nuxt to="/regional-blocks">
+    <v-btn text tile color="secondary" nuxt to="/regional-blocks" class="mr-1">
       Blocos Regionais
     </v-btn>
     <v-btn text tile color="secondary" nuxt to="/countries-research">
@@ -42,5 +42,9 @@ export default {
 <style scoped lang="scss">
 .btn {
   text-transform: none;
+}
+
+.nav-shadow {
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
 }
 </style>

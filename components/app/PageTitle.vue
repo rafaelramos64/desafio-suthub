@@ -7,10 +7,10 @@
 
 <script>
 export default {
- props: {
-   title: { type: '', default: '' },
-   subtitle: { type: '', default: '' },
- }
+  props: {
+    title: { type: '', default: '' },
+    subtitle: { type: '', default: '' },
+  }
 }
 </script>
 
