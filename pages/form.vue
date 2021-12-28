@@ -250,7 +250,6 @@
             <v-col cols="4" class="text-right">
               <v-btn
                 @click.prevent="saveFormData()"
-                :disabled="disableSaveButton"
                 class="mr-4 save-btn"
                 type="submit"
                 color="primary"
@@ -271,7 +270,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, minLength, maxLength, between } from 'vuelidate/lib/validators'
+import { required, requiredIf, minLength, maxLength, between } from 'vuelidate/lib/validators'
 import { cpf } from 'cpf-cnpj-validator'
 import States from '../assets/js/states'
 
@@ -284,7 +283,6 @@ export default {
     birthDate: {
       dateFormatted: {
         required,
-        between: between(18, 65)
       }
     },
     CPF: { required },
@@ -297,26 +295,36 @@ export default {
         required,
         minLength: minLength(10),
       },
-      city: { required },
+      city: {
+        required,
+        minLength: minLength(5)
+      },
       state: {
         required,
         maxLength: maxLength(2),
       },
       informState: {
-        required,
+        required: requiredIf(function() {
+          return this.address.state === 'Outro' || this.address.state === 'outro'
+        }),
         maxLength: maxLength(2),
       },
-      street: { required },
-      district: { required },
+      street: {
+        required,
+        minLength: minLength(5)
+      },
+      district: {
+        required,
+        minLength: minLength(5)
+      },
     },
 
     petSpecie: { required },
     petRace: { required },
-    otherPetRace: { required },
-    checkbox: {
-      checked (val) {
-        return val
-      },
+    otherPetRace: {
+      required: requiredIf(function() {
+        return this.petRace === 'Outro' || this.petRace === 'outro'
+      }),
     },
   },
 
@@ -330,7 +338,7 @@ export default {
         menu: false,
       },
       CPF: '',
-      validCPF: undefined,
+      validCPF: null,
       income: null,
       address: {
         CEP: '',
@@ -363,7 +371,6 @@ export default {
         'Outro'
       ],
       otherPetRace: '',
-      disableSaveButton: false,
     }
   },
 
@@ -414,7 +421,7 @@ export default {
       const errors = []
       if (!this.$v.address.CEP.$dirty) return errors
       !this.$v.address.CEP.required && errors.push('O CEP é obrigatório.')
-      !this.$v.address.CEP.minLength && errors.push('É necessário no mínimo 10 caracteres.')
+      !this.$v.address.CEP.minLength && errors.push('Informe no mínimo 10 caracteres.')
       return errors
     },
 
@@ -422,6 +429,7 @@ export default {
       const errors = []
       if (!this.$v.address.city.$dirty) return errors
       !this.$v.address.city.required && errors.push('A cidade é obrigatória.')
+      !this.$v.address.city.minLength && errors.push('Informe no mínimo 5 caracteres.')
       return errors
     },
 
@@ -447,6 +455,7 @@ export default {
       const errors = []
       if (!this.$v.address.street.$dirty) return errors
       !this.$v.address.street.required && errors.push('A rua é obrigatória.')
+      !this.$v.address.street.minLength && errors.push('Informe no mínimo 5 caracteres.')
       return errors
     },
 
@@ -454,6 +463,7 @@ export default {
       const errors = []
       if (!this.$v.address.district.$dirty) return errors
       !this.$v.address.district.required && errors.push('O bairro é obrigatório.')
+      !this.$v.address.district.minLength && errors.push('Informe no mínimo 5 caracteres.')
       return errors
     },
 
@@ -479,10 +489,6 @@ export default {
         errors.push(this.petSpecie === 'Cão' ? 'A raça do cão é obrigatória.' : 'A raça do gato é obrigatória.')
       return errors
     },
-
-    verifyFormErros () {
-      return this.$v
-    }
   },
 
   watch: {
@@ -498,12 +504,7 @@ export default {
     petSpecie () {
       this.petRace = ''
     },
-
-    verifyFormErros () {
-      !this.$v.$invalid ?   this.disableSaveButton = false : ''
-    }
-
-   },
+  },
 
   methods: {
     statesList () {
@@ -527,13 +528,10 @@ export default {
 
     saveFormData () {
       this.$v.$touch()
-      console.log(this.$v.$invalid)
 
-      if (!this.$v.$invalid) {
-      
+      if (!this.$v.$error) {
         console.log('Save with sucessfull!')
       } else {
-        this.disableSaveButton = true
         this.$v.$touch()
       }
     },
@@ -545,7 +543,7 @@ export default {
       this.birthDate.date = null
       this.birthDate.dateFormatted = null
       this.CPF = ''
-      validCPF = undefined
+      validCPF = null
       this.select = null
       this.income = null,
       this.address
