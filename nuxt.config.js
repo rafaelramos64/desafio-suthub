@@ -33,8 +33,9 @@ export default {
     dirs: [
       '~/components',
       '~/components/app',
-      '~/components/country',
+      '~/components/countries',
       '~/components/buttons',
+      '~/components/forms'
     ]
   },
 
