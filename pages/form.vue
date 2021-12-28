@@ -479,6 +479,10 @@ export default {
         errors.push(this.petSpecie === 'Cão' ? 'A raça do cão é obrigatória.' : 'A raça do gato é obrigatória.')
       return errors
     },
+
+    verifyFormErros () {
+      return this.$v
+    }
   },
 
   watch: {
@@ -494,7 +498,12 @@ export default {
     petSpecie () {
       this.petRace = ''
     },
-  },
+
+    verifyFormErros () {
+      !this.$v.$invalid ?   this.disableSaveButton = false : ''
+    }
+
+   },
 
   methods: {
     statesList () {
@@ -518,16 +527,15 @@ export default {
 
     saveFormData () {
       this.$v.$touch()
+      console.log(this.$v.$invalid)
 
-      console.log(this.$v)
-
-      /* if (!this.$v.$error) {
-        this.disableSaveButton = false
+      if (!this.$v.$invalid) {
+      
         console.log('Save with sucessfull!')
       } else {
         this.disableSaveButton = true
         this.$v.$touch()
-      } */
+      }
     },
 
     clear () {
