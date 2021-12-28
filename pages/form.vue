@@ -8,7 +8,7 @@
 
     <v-row justify="center">
       <v-col cols="8">
-        <form>
+        <v-form>
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
@@ -176,15 +176,15 @@
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
-                v-model="address.dictrict"
-                :error-messages="cepErrors"
+                v-model="address.district"
+                :error-messages="districtErrors"
                 label="Bairro*"
                 placeholder="Informe seu bairro"
                 prepend-inner-icon="mdi-home-group"
                 required
                 color="terciary"
-                @input="$v.address.dictrict.$touch()"
-                @blur="$v.address.dictrict.$touch()"
+                @input="$v.address.district.$touch()"
+                @blur="$v.address.district.$touch()"
               />
             </v-col>
 
@@ -246,18 +246,24 @@
             </v-col>
           </v-row>
 
-         <v-row justify="end">
-           <v-col cols="4" class="text-right">
-             {{ !$v.errors }}
-              <v-btn @click.prevent.stop="saveFormData()" :disabled="$v.errors" class="mr-4 save-btn" type="submit" color="primary" outlined>
+          <v-row justify="end">
+            <v-col cols="4" class="text-right">
+              <v-btn
+                @click.prevent="saveFormData()"
+                :disabled="disableSaveButton"
+                class="mr-4 save-btn"
+                type="submit"
+                color="primary"
+                outlined
+              >
                 Salvar
               </v-btn>
               <v-btn class="clear-btn" @click="clear" color="error" outlined>
                 Limpar
               </v-btn>
-           </v-col>
-         </v-row>
-        </form>
+            </v-col>
+          </v-row>
+        </v-form>
       </v-col>
     </v-row>
   </div>
@@ -301,7 +307,7 @@ export default {
         maxLength: maxLength(2),
       },
       street: { required },
-      dictrict: { required },
+      district: { required },
     },
 
     petSpecie: { required },
@@ -330,8 +336,9 @@ export default {
         CEP: '',
         city: '',
         state: '',
+        informState: '',
         street: '',
-        dictrict: '',
+        district: '',
       },
       petSpecie: null,
       species: [
@@ -356,6 +363,7 @@ export default {
         'Outro'
       ],
       otherPetRace: '',
+      disableSaveButton: false,
     }
   },
 
@@ -421,7 +429,7 @@ export default {
       const errors = []
       if (!this.$v.address.state.$dirty) return errors
       !this.$v.address.state.required && errors.push('O estado é obrigatório.')
-      if (this.address.state !== 'Outro') {
+      if (this.address.state !== 'Outro' && this.address.state !== 'outro') {
         !this.$v.address.state.maxLength && errors.push('Infome apenas dois caracteres.')
       }
       return errors
@@ -477,6 +485,8 @@ export default {
 
     'birthDate.date': 'getFormattedDate',
 
+    'address.informState': 'changeInformState',
+
     CPF () {
       if (this.CPF.length === 14) this.validCPF = cpf.isValid(this.CPF)
     },
@@ -484,13 +494,6 @@ export default {
     petSpecie () {
       this.petRace = ''
     },
-
-    address: {
-      deep: true,
-      handler () {
-        this.address.informState = ''
-      }
-    }
   },
 
   methods: {
@@ -505,6 +508,10 @@ export default {
       return `${day}/${month}/${year}`
     },
 
+    changeInformState () {
+      this.address.informState = ''
+    },
+
     getFormattedDate () {
       this.birthDate.dateFormatted = this.formatDate(this.birthDate.date)
     },
@@ -512,20 +519,36 @@ export default {
     saveFormData () {
       this.$v.$touch()
 
-       console.log(this.$v.error)
+      console.log(this.$v)
 
-      if (!this.$v.errors) {
-        console.log("Save with sucessfull!")
-      }
+      /* if (!this.$v.$error) {
+        this.disableSaveButton = false
+        console.log('Save with sucessfull!')
+      } else {
+        this.disableSaveButton = true
+        this.$v.$touch()
+      } */
     },
 
     clear () {
       this.$v.$reset()
       this.name = ''
       this.surname = ''
-      this.birthDate.name = new Date()
-      this.cpf = ''
+      this.birthDate.date = null
+      this.birthDate.dateFormatted = null
+      this.CPF = ''
+      validCPF = undefined
       this.select = null
+      this.income = null,
+      this.address
+      this.address.CEP = ''
+      this.address.city = ''
+      this.address.state = ''
+      this.address.informState = ''
+      this.address.street = ''
+      this.address.district = ''
+      this.petSpecie = null
+      this.otherPetRace = ''
     },
   },
 }
