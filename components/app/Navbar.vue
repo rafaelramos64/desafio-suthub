@@ -14,18 +14,7 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn text tile color="secondary" nuxt to="/form">
-      Formluário
-    </v-btn>
-    <v-btn text tile color="secondary" nuxt to="/country" class="mx-1">
-      Brasil
-    </v-btn>
-    <v-btn text tile color="secondary" nuxt to="/regional-blocks" class="mr-1">
-      Blocos Regionais
-    </v-btn>
-    <v-btn text tile color="secondary" nuxt to="/countries-research">
-      Buscar Países
-    </v-btn>
+    <NavBarButton />
   </v-app-bar>
 </template>
 
