@@ -261,6 +261,7 @@ import { validationMixin } from 'vuelidate'
 import { required, requiredIf, minLength, maxLength, between } from 'vuelidate/lib/validators'
 import { cpf } from 'cpf-cnpj-validator'
 import States from '../../assets/js/states'
+import { api } from '../../assets/service'
 
 export default {
   mixins: [validationMixin],
@@ -359,6 +360,7 @@ export default {
         'Outro'
       ],
       otherPetRace: '',
+      searchedCep: null
     }
   },
 
@@ -410,6 +412,8 @@ export default {
       if (!this.$v.address.CEP.$dirty) return errors
       !this.$v.address.CEP.required && errors.push('O CEP é obrigatório.')
       !this.$v.address.CEP.minLength && errors.push('Informe ao menos 9 caracteres.')
+      this.searchedCep?.status >= 404 && this.searchedCep?.status <= 505
+        && errors.push(this.searchedCep.message + '.')
       return errors
     },
 
@@ -477,13 +481,15 @@ export default {
         errors.push(this.petSpecie === 'Cão' ? 'A raça do cão é obrigatória.' : 'A raça do gato é obrigatória.')
       return errors
     },
-  },
+  },  
 
   watch: {
 
     'birthDate.date': 'getFormattedDate',
 
     'address.informState': 'changeInformState',
+
+    'address.CEP': 'getInfoCep',
 
     CPF () {
       if (this.CPF.length === 14) this.validCPF = cpf.isValid(this.CPF)
@@ -508,6 +514,33 @@ export default {
 
     changeInformState () {
       this.address.informState = ''
+    },
+
+    async getInfoCep () {
+      this.clearAddress()
+      
+      if (this.address.CEP.length === 9) {
+        let cep = this.address.CEP.replace(/[^0-9]/, '')
+
+        const { data } = await api.get(`${cep}.json`)
+
+        this.searchedCep = data
+
+        if (this.searchedCep?.status >= 200 && this.searchedCep?.status <= 207) {
+          this.address.city = this.searchedCep.city
+          this.address.state = this.searchedCep.state
+          this.address.street = this.searchedCep.address
+          this.address.district = this.searchedCep.district
+        }
+      }
+    },
+
+    clearAddress () {
+      this.address.city = ''
+      this.address.state = ''
+      this.address.informState = ''
+      this.address.street = ''
+      this.address.district = ''
     },
 
     getFormattedDate () {
