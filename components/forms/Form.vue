@@ -109,7 +109,7 @@
           label="CEP*"
           placeholder="Informe seu CEP"
           prepend-inner-icon="mdi-mailbox"
-          v-mask="'##.###-###'"
+          v-mask="'#####-###'"
           required
           color="terciary"
           @input="$v.address.CEP.$touch()"
@@ -261,6 +261,7 @@ import { validationMixin } from 'vuelidate'
 import { required, requiredIf, minLength, maxLength, between } from 'vuelidate/lib/validators'
 import { cpf } from 'cpf-cnpj-validator'
 import States from '../../assets/js/states'
+import { api } from '../../assets/service'
 
 export default {
   mixins: [validationMixin],
@@ -281,7 +282,7 @@ export default {
     address: {
       CEP: {
         required,
-        minLength: minLength(10),
+        minLength: minLength(9),
       },
       city: {
         required,
@@ -359,6 +360,7 @@ export default {
         'Outro'
       ],
       otherPetRace: '',
+      searchedCep: null
     }
   },
 
@@ -409,7 +411,9 @@ export default {
       const errors = []
       if (!this.$v.address.CEP.$dirty) return errors
       !this.$v.address.CEP.required && errors.push('O CEP é obrigatório.')
-      !this.$v.address.CEP.minLength && errors.push('Informe no mínimo 10 caracteres.')
+      !this.$v.address.CEP.minLength && errors.push('Informe ao menos 9 caracteres.')
+      this.searchedCep?.status >= 404 && this.searchedCep?.status <= 505
+        && errors.push(this.searchedCep.message + '.')
       return errors
     },
 
@@ -417,7 +421,7 @@ export default {
       const errors = []
       if (!this.$v.address.city.$dirty) return errors
       !this.$v.address.city.required && errors.push('A cidade é obrigatória.')
-      !this.$v.address.city.minLength && errors.push('Informe no mínimo 5 caracteres.')
+      !this.$v.address.city.minLength && errors.push('Informe ao menos 5 caracteres.')
       return errors
     },
 
@@ -426,7 +430,7 @@ export default {
       if (!this.$v.address.state.$dirty) return errors
       !this.$v.address.state.required && errors.push('O estado é obrigatório.')
       if (this.address.state !== 'Outro' && this.address.state !== 'outro') {
-        !this.$v.address.state.maxLength && errors.push('Infome apenas dois caracteres.')
+        !this.$v.address.state.maxLength && errors.push('Infome apenas 2 caracteres.')
       }
       return errors
     },
@@ -435,7 +439,7 @@ export default {
       const errors = []
       if (!this.$v.address.informState.$dirty) return errors
       !this.$v.address.informState.required && errors.push('O estado é obrigatório.')
-      !this.$v.address.informState.maxLength && errors.push('Infome apenas dois caracteres.')
+      !this.$v.address.informState.maxLength && errors.push('Infome apenas 2 caracteres.')
       return errors
     },
 
@@ -443,7 +447,7 @@ export default {
       const errors = []
       if (!this.$v.address.street.$dirty) return errors
       !this.$v.address.street.required && errors.push('A rua é obrigatória.')
-      !this.$v.address.street.minLength && errors.push('Informe no mínimo 5 caracteres.')
+      !this.$v.address.street.minLength && errors.push('Informe ao menos 5 caracteres.')
       return errors
     },
 
@@ -451,7 +455,7 @@ export default {
       const errors = []
       if (!this.$v.address.district.$dirty) return errors
       !this.$v.address.district.required && errors.push('O bairro é obrigatório.')
-      !this.$v.address.district.minLength && errors.push('Informe no mínimo 5 caracteres.')
+      !this.$v.address.district.minLength && errors.push('Informe ao menos 5 caracteres.')
       return errors
     },
 
@@ -477,13 +481,15 @@ export default {
         errors.push(this.petSpecie === 'Cão' ? 'A raça do cão é obrigatória.' : 'A raça do gato é obrigatória.')
       return errors
     },
-  },
+  },  
 
   watch: {
 
     'birthDate.date': 'getFormattedDate',
 
     'address.informState': 'changeInformState',
+
+    'address.CEP': 'getInfoCep',
 
     CPF () {
       if (this.CPF.length === 14) this.validCPF = cpf.isValid(this.CPF)
@@ -508,6 +514,33 @@ export default {
 
     changeInformState () {
       this.address.informState = ''
+    },
+
+    async getInfoCep () {
+      this.clearAddress()
+      
+      if (this.address.CEP.length === 9) {
+        let cep = this.address.CEP.replace(/[^0-9]/, '')
+
+        const { data } = await api.get(`${cep}.json`)
+
+        this.searchedCep = data
+
+        if (this.searchedCep?.status >= 200 && this.searchedCep?.status <= 207) {
+          this.address.city = this.searchedCep.city
+          this.address.state = this.searchedCep.state
+          this.address.street = this.searchedCep.address
+          this.address.district = this.searchedCep.district
+        }
+      }
+    },
+
+    clearAddress () {
+      this.address.city = ''
+      this.address.state = ''
+      this.address.informState = ''
+      this.address.street = ''
+      this.address.district = ''
     },
 
     getFormattedDate () {
