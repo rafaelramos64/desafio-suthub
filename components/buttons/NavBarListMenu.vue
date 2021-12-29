@@ -16,7 +16,7 @@
           color="primary"
           nuxt
           :to="button.to"
-          :class="$vuetify.breakpoint.mdAndUp ? 'mb-0 mr-2' : ''"
+          :class="$vuetify.breakpoint.mdAndUp ? 'mb-0 mr-2' : 'mb-4'"
         >
           <v-icon v-text="button.icon" class="mr-3"/>
 
