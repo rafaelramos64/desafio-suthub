@@ -57,7 +57,7 @@ export default {
 @import '~assets/scss/main.scss';
 
 .border-footer {
-  border-top: 1px solid #fcfc !important;
+  border-top: 1px solid rgba(0,0,0,.075) !important;
 }
 
 .rafael-ramos {

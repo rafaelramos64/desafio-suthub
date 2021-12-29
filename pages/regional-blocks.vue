@@ -34,7 +34,7 @@
     </v-row>
 
     <v-row v-if="getCountriesByRegionalBlock.length > 0" justify="center" class="mt-3">
-      <v-col cols="11" sm="9" md="7" lg="6" xl="4">
+      <v-col cols="12" sm="9" md="7" lg="6" xl="4">
           <v-card-title class="py-1">Bloco Selecionado:</v-card-title>
           <v-card-text>{{ btnActive.description }}</v-card-text>
 
@@ -75,10 +75,6 @@ export default {
       blocks: this.$vuetify.breakpoint.xs ? Blocks.blocksMobile : Blocks.blocks,
       btnActive: '',
     }
-  },
-
-  mounted () {
-    console.log(this.$vuetify.breakpoint)
   },
 
   computed: {

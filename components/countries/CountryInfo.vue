@@ -17,7 +17,7 @@
 
           <tbody>
             <tr class="text-center">
-              <td> {{ getCountries.name }}</td>
+              <td> {{ getCountries.nativeName }}</td>
               <td>{{ getCountries.capital }}</td>
               <td>{{ spreadCallingCodes(getCountries.callingCodes) }}</td>
               <td>{{ getCountries.region }}</td>
@@ -29,7 +29,7 @@
                 {{ currency.name }}, {{ currency.symbol }}
               </td>
               <td v-for="lang in getCountries.languages" :key="lang.name">
-                {{ lang.name }}
+                {{ lang.nativeName }}
               </td>
               <div class="borders text-left">
                 <td
