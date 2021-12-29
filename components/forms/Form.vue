@@ -248,7 +248,7 @@
         >
           Salvar
         </v-btn>
-        <v-btn class="clear-btn" @click="clear" color="error" outlined>
+        <v-btn class="clear-btn" @click="clear()" color="error" outlined>
           Limpar
         </v-btn>
       </v-col>
@@ -518,7 +518,7 @@ export default {
 
     async getInfoCep () {
       this.clearAddress()
-      
+
       if (this.address.CEP.length === 9) {
         let cep = this.address.CEP.replace(/[^0-9]/, '')
 

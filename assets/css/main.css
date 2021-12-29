@@ -13,6 +13,7 @@ body {
 
 ::-webkit-scrollbar {
   width: 8px;
+  height: 3px;
   background: #ffffff!important;
 }
 
@@ -20,7 +21,6 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
   border-radius: 4px;
   background-color: #007C74;
   opacity: 0;

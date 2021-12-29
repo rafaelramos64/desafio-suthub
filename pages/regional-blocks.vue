@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row justify="center">
-      <v-col cols="3">
+      <v-col cols="11" sm="7" lg="5" :class="$vuetify.breakpoint.xs ? 'px-5' : 'pr-10'">
         <PageTitle title="Blocos Regionais"  />
         
         <ul class="text-left d-flex justify-center">
@@ -25,11 +25,11 @@
     </v-row>
 
     <v-row v-if="getCountriesByRegionalBlock.length > 0" justify="center" class="mt-3">
-      <v-col cols="5">
+      <v-col cols="11" sm="9" md="7" lg="6" xl="4">
           <v-card-title class="py-1">Bloco Selecionado:</v-card-title>
           <v-card-text>{{ btnActive.description }}</v-card-text>
 
-        <v-simple-table class="table-area">
+        <v-simple-table height="350" fixed-header>
           <template v-slot:default>
             <thead>
               <tr>
@@ -137,13 +137,8 @@ ul {
   color: $primary !important;
 }
 
-.table-area {
-  max-height: 350px;
-  overflow: auto
-}
-
 ::-webkit-scrollbar {
-  width: 6px !important;
-  background-color: #f8f8f8 !important;
+  width: 4px !important;
+  background-color: #000 !important;
 }
 </style>

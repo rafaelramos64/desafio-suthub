@@ -1,10 +1,10 @@
 <template>
-  <v-row justify="center" class="mt-5">
+  <v-row justify="center" class="my-5">
     <v-col cols="12" class="d-flex justify-center">
       <Flag selectedCountry :country="getCountries" />
     </v-col>
 
-    <v-col cols="11">
+    <v-col cols="11" sm="12" xl="7" :class="$vuetify.breakpoint.xs ? 'px-0' : ''">
       <v-simple-table>
         <template v-slot:default>
           <thead>
@@ -96,10 +96,15 @@ export default {
   overflow: auto;
 }
 
+.v-data-table__wrapper {
+  overflow-x: hidden !important;
+}
+
 ::-webkit-scrollbar {
-  width: 6px !important;
+  width: 4px !important;
   background-color: #f8f8f8 !important;
 }
+
 
 @media screen and (max-width: 550px) {
   .country-info {

@@ -10,7 +10,7 @@
       <v-col cols="4">
         <v-text-field
           label="Buscar País"
-          placeholder="Digite um nome"
+          placeholder="Digite o nome de um país em inglês"
           color="terciary"
           autocomplete="off"
           :rules="rules"
