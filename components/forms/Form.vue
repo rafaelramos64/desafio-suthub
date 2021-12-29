@@ -238,17 +238,28 @@
     </v-row>
 
     <v-row justify="end">
-      <v-col cols="4" class="text-right">
+      <v-col
+        cols="12"
+        md="5"
+        :class="$vuetify.breakpoint.xs ? 'd-flex flex-column-reverse' : 'text-right'">
         <v-btn
-          @click.prevent="saveFormData()"
-          class="mr-4 save-btn"
+          class="save-btn"
+          :class="$vuetify.breakpoint.xs ? 'mt-3' : 'mr-3'"
           type="submit"
-          color="primary"
+          color="terciary"
           outlined
+          :block="$vuetify.breakpoint.xs"
+          @click.prevent="saveFormData()"
         >
           Salvar
         </v-btn>
-        <v-btn class="clear-btn" @click="clear" color="error" outlined>
+        <v-btn
+          class="clear-btn"
+          color="error"
+          outlined 
+          :block="$vuetify.breakpoint.xs"
+          @click="clear()"
+        >
           Limpar
         </v-btn>
       </v-col>
@@ -518,7 +529,7 @@ export default {
 
     async getInfoCep () {
       this.clearAddress()
-      
+
       if (this.address.CEP.length === 9) {
         let cep = this.address.CEP.replace(/[^0-9]/, '')
 
@@ -585,8 +596,8 @@ export default {
 @import '~assets/scss/main.scss';
 
 .save-btn:hover {
-  background-color: $primary !important;
-  border-color: $primary !important;
+  background-color: $terciary !important;
+  border-color: $terciary !important;
   color: #fff !important;
   box-shadow: 0px 8px 10px -5px rgb(0 0 0 / 20%),
     0px 16px 24px 2px rgb(0 0 0 / 14%), 0px 6px 30px 5px rgb(0 0 0 / 12%)

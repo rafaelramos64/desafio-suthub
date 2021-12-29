@@ -2,7 +2,6 @@
   <v-tooltip top color="terciary">
     <template v-slot:activator="{ on, attrs }">
       <v-btn
-        class="mx-2 mb-2"
         rounded text color="primary"
         v-bind="attrs"
         v-on="on"
@@ -40,5 +39,11 @@ export default {
 
 .regional-block-active {
   background-color: $secondary !important;
+}
+
+.v-btn:not(.v-btn--round).v-size--default {
+  @media only screen and (max-width: 400px) {
+    padding: 0 6px !important;
+  }
 }
 </style>

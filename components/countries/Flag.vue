@@ -33,7 +33,8 @@ export default {
       default: false,
     },
     fullWidth: {
-      type: Boolean, default: false,
+      type: Boolean,
+      default: false,
     }
   },
 }
