@@ -575,7 +575,7 @@ export default {
       this.birthDate.date = null
       this.birthDate.dateFormatted = null
       this.CPF = ''
-      validCPF = null
+      this.validCPF = null
       this.select = null
       this.income = null,
       this.address
