@@ -35,7 +35,8 @@ export default {
       '~/components/app',
       '~/components/countries',
       '~/components/buttons',
-      '~/components/forms'
+      '~/components/forms',
+      '~/components/lists',
     ]
   },
 
