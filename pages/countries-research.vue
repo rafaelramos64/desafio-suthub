@@ -13,6 +13,7 @@
           placeholder="Digite o nome de um país em inglês"
           color="terciary"
           autocomplete="off"
+          prepend-inner-icon="mdi-magnify"
           :rules="rules"
           v-model="countriesResearch"
         ></v-text-field>

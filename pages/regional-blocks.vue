@@ -1,26 +1,35 @@
 <template>
   <div>
     <v-row justify="center">
-      <v-col cols="11" sm="7" lg="5" :class="$vuetify.breakpoint.xs ? 'px-5' : 'pr-10'">
+      <v-col cols="12" sm="8" lg="5" ><!-- :class="$vuetify.breakpoint.xs ? 'px-5' : 'pr-10'" -->
         <PageTitle title="Blocos Regionais"  />
-        
-        <ul class="text-left d-flex justify-center">
-          <li v-for="(block, index) in regionalBlocks" :key="index" @click="activeRegionalBlockBtn(block)">
-            <RegionalBlockBtn :block="block" :btnActive="btnActive"  />
-          </li>
-        </ul>
 
-        <ul class="text-left d-flex justify-center">
-          <li v-for="(block, index) in regionalBlocks2" :key="index" @click="activeRegionalBlockBtn(block)">
-            <RegionalBlockBtn :block="block" :btnActive="btnActive"  />
-          </li>
-        </ul>
+        <v-list class="d-flex justify-center " rounded color="transparent">
+          <v-list-item dense class="px-0 " :class="$vuetify.breakpoint.xs ? 'mx-0' : 'mx-2'"
+            v-for="(block, index) in blocks.regionalBlocks" :key="index"
+            @click="activeRegionalBlockBtn(block)"
+          >
+            <RegionalBlockBtn :block="block" :btnActive="btnActive" />
+          </v-list-item>
+        </v-list>
 
-        <ul class="text-left d-flex justify-center">
-          <li v-for="(block, index) in regionalBlocks3" :key="index" @click="activeRegionalBlockBtn(block)">
-            <RegionalBlockBtn :block="block" :btnActive="btnActive"  />
-          </li>
-        </ul>
+        <v-list class="d-flex justify-center" rounded color="transparent">
+          <v-list-item dense class="px-0" :class="$vuetify.breakpoint.xs ? 'mx-0' : 'mx-2'"
+            v-for="(block, index) in blocks.regionalBlocks2" :key="index"
+            @click="activeRegionalBlockBtn(block)"
+          >
+            <RegionalBlockBtn :block="block" :btnActive="btnActive" />
+          </v-list-item>
+        </v-list>
+
+        <v-list class="d-flex justify-center" rounded color="transparent">
+          <v-list-item dense class="px-0" :class="$vuetify.breakpoint.xs ? 'mx-0' : 'mx-2'"
+            v-for="(block, index) in blocks.regionalBlocks3" :key="index"
+            @click="activeRegionalBlockBtn(block)"
+          >
+            <RegionalBlockBtn :block="block" :btnActive="btnActive" />
+          </v-list-item>
+        </v-list>
       </v-col>
     </v-row>
 
@@ -57,36 +66,34 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import Blocks from '../assets/js/regionalBlocks'
 
 export default {
   name: 'regional-blocks',
   data () {
     return {
-      regionalBlocks: [
-        { text: 'EU', description: 'União Européia' },
-        { text: 'EFTA', description: 'Assossiação Européia de Livre Comércio' },
-        { text: 'CARICOM', description: 'Comunidade Caribenha' },
-        { text: 'PA', description: 'Aliança do Pacífico' },
-        { text:'AU', description: 'União Africana' },
-        { text: 'USAN', description: 'União das Nações Sul-Americanas' },
-      ],
-      regionalBlocks2: [
-        { text: 'EEU', description: 'União Econômica da Eurásia' },
-        { text: 'AL', description: 'Liga Arábica' },
-        { text: 'ASEAN', description: 'Associação das Nações do Sudeste Asiático' },
-        { text: 'CAIS', description: 'Sistema de Integração Centro-americana' },
-        { text: 'CEFTA', description: 'Acordo de Livre Comércio da Europa Central' },
-      ],
-      regionalBlocks3: [
-        { text: 'NAFTA', description: 'Acordo de Livre Comércio da América do Norte' },
-        { text: 'SAARC', description: 'Associação do Sul da Ásia para Cooperação Regional' },
-      ],
+      blocks: this.$vuetify.breakpoint.xs ? Blocks.blocksMobile : Blocks.blocks,
       btnActive: '',
     }
   },
 
+  mounted () {
+    console.log(this.$vuetify.breakpoint)
+  },
+
   computed: {
     ...mapGetters(['getCountriesByRegionalBlock', 'getLoadingCountries']),
+
+    verifyBreakpoint () {
+      return this.$vuetify?.breakpoint.xs
+    }
+  },
+
+  watch: {
+    verifyBreakpoint () {
+      this.$vuetify.breakpoint.xs ?
+        this.blocks = Blocks.blocksMobile : this.blocks = Blocks.blocks
+    }
   },
 
   methods: {
@@ -107,8 +114,8 @@ export default {
 <style lang="scss" scoped>
 @import '~assets/scss/main.scss';
 
-ul {
-  list-style-type: none;
+.v-list-item {
+  flex: none !important;
 }
 
 .regional-blocks-title {
