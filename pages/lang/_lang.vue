@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row justify="center">
-      <v-col cols="6" class="d-flex justify-center align-center">
+      <v-col cols="11" sm="6" class="d-flex justify-center align-center">
         <PageTitle title="Língua Selecionada" :subtitle="getSelectedLanguage.name" />
       </v-col>
     </v-row>
