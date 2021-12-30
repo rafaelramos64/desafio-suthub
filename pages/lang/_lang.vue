@@ -8,7 +8,10 @@
 
     <v-row class="text-center mb-2" justify="center">
       <v-col cols="12" md="9" xl="8" class="d-flex justify-center align-center">
-        <v-card max-width="1200px" min-width="340px" class="card-lang py-5">
+        <v-card
+          max-width="1200px"
+          :min-width="$vuetify.breakpoint.xs ? '340px' : '600px'"
+          class="card-lang py-5">
           <v-row>
             <v-col cols="12" class="pa-0">
               <v-card-title class="justify-center pt-3 pb-7">
@@ -61,6 +64,7 @@ export default {
 }
 
 .card-lang {
-  border-radius: 0.9rem;
+  border-radius: 4px;
+  border-top: 3px solid $terciary;
 }
 </style>
