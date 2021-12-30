@@ -8,24 +8,27 @@
     >
       <Flag class="flag-img" fullWidth :country="country" />
       
-      <v-card-title>
-        {{ country.name }}
+      <v-card-title >
+        <span class="hide-country-name">{{ country.name }}</span>
       </v-card-title>
 
-      <v-card-subtitle>
-        Línguas <br />
-        <v-btn
-          text
-          color="terciary"
-          class="language pa-0"
-          v-for="(lang, key) in country.languages"
-          :key="key"
-          nuxt
-          :to="'lang/' + lang.iso639_1"
-        >
-          <span @click="saveSelectedLanguage(lang)">{{ lang.name }}, </span>
-        </v-btn>
-      </v-card-subtitle>
+      <div :class="$vuetify.breakpoint.mdAndUp ? 'area-languages' : ''">
+        <v-card-subtitle>
+          Línguas <br />
+          <v-btn
+            :text="$vuetify.breakpoint.mdAndUp"
+            color="terciary"
+            class="language pa-0"
+            :class="$vuetify.breakpoint.smAndDown ? 'mr-1 mb-1' : ''"
+            v-for="(lang, key) in country.languages"
+            :key="key"
+            nuxt
+            :to="'lang/' + lang.iso639_1"
+          >
+            <span @click="saveSelectedLanguage(lang)">{{ lang.name }}, </span>
+          </v-btn>
+        </v-card-subtitle>
+      </div>
 
       <v-card-actions>
         <v-btn v-if="!show" color="deep-purple" text @click="show = !show">
@@ -51,7 +54,7 @@
           <v-divider></v-divider>
 
           <v-card-text>
-            I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
+            Mais informações.
           </v-card-text>
         </div>
       </v-expand-transition>
@@ -107,5 +110,18 @@ export default {
   color: #fff !important;
   box-shadow: 0px 8px 10px -5px rgb(0 0 0 / 20%),
     0px 16px 24px 2px rgb(0 0 0 / 14%), 0px 6px 30px 5px rgb(0 0 0 / 12%);
+}
+
+.hide-country-name  {
+  max-width: 28ch;
+  overflow: hidden;
+  text-overflow: ellipsis !important;
+  white-space: nowrap;
+}
+
+.area-languages {
+  max-height: 90px;
+  overflow-y: auto;
+  
 }
 </style>
