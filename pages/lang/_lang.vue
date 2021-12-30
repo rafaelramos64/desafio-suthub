@@ -9,17 +9,19 @@
     <v-row class="text-center mb-2" justify="center">
       <v-col cols="12" md="9" xl="8" class="d-flex justify-center align-center">
         <v-card max-width="1200px" class="card-lang py-5">
-          <v-row justify="center">
-            <v-col cols="12">
-              <h3 class="ml-2 mt-1 h3">
-                Países que falam <span class="capitalize-native-name">{{ getSelectedLanguage.nativeName }}</span>
-              </h3>
+          <v-row>
+            <v-col cols="12" class="pa-0">
+              <v-card-title class="justify-center pt-3 pb-7">
+                Países que falam <span class="capitalize-native-name ml-1"> {{ getSelectedLanguage.nativeName }}</span>
+              </v-card-title>
             </v-col>
+          </v-row>
 
-            <v-divider></v-divider>
+          <v-divider class="mb-3"></v-divider>
 
+          <v-row justify="center">
             <v-col cols="6" sm="4" v-for="country in getCountries" :key="country.name">
-              {{ country.name }}
+              <v-card-text class="terciary--text">{{ country.name }}</v-card-text>
             </v-col>
           </v-row>
         </v-card>
