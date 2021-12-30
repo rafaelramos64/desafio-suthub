@@ -11,7 +11,7 @@
         <v-card
           max-width="1200px"
           :min-width="$vuetify.breakpoint.xs ? '340px' : '600px'"
-          class="card-lang py-5 px-1">
+          class="card-lang py-5">
           <v-row>
             <v-col cols="12" class="pa-0">
               <v-card-title class="justify-center pt-3 pb-7">
@@ -20,7 +20,7 @@
             </v-col>
           </v-row>
 
-          <v-divider class="mb-3"></v-divider>
+          <v-divider class="mb-3 mx-10"></v-divider>
 
           <v-row justify="center">
             <v-col cols="6" sm="4" v-for="country in getCountries" :key="country.name">
