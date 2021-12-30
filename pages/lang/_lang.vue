@@ -11,7 +11,7 @@
         <v-card
           max-width="1200px"
           :min-width="$vuetify.breakpoint.xs ? '340px' : '600px'"
-          class="card-lang py-5">
+          class="card-lang py-5 px-1">
           <v-row>
             <v-col cols="12" class="pa-0">
               <v-card-title class="justify-center pt-3 pb-7">
