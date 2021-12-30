@@ -1,5 +1,15 @@
 <template>
   <v-form>
+    <v-alert
+      :value="alert"
+      border="left"
+      text
+      elevation="22"
+      type="success"
+      class="alert"
+    >
+      Formulário salvo com sucesso!
+    </v-alert>
     <v-row>
       <v-col cols="12" sm="6">
         <v-text-field
@@ -371,7 +381,8 @@ export default {
         'Outro'
       ],
       otherPetRace: '',
-      searchedCep: null
+      searchedCep: null,
+      alert: false,
     }
   },
 
@@ -422,7 +433,7 @@ export default {
       const errors = []
       if (!this.$v.address.CEP.$dirty) return errors
       !this.$v.address.CEP.required && errors.push('O CEP é obrigatório.')
-      !this.$v.address.CEP.minLength && errors.push('Informe ao menos 9 caracteres.')
+      !this.$v.address.CEP.minLength && errors.push('Informe ao menos 8 caracteres.')
       this.searchedCep?.status >= 404 && this.searchedCep?.status <= 505
         && errors.push(this.searchedCep.message + '.')
       return errors
@@ -562,9 +573,15 @@ export default {
       this.$v.$touch()
 
       if (!this.$v.$error) {
-        console.log('Save with sucessfull!')
+        this.alert = true
+
+        setTimeout(() => {
+          this.alert = false
+        }, 5000);
+
       } else {
         this.$v.$touch()
+        this.alert = false
       }
     },
 
@@ -609,5 +626,11 @@ export default {
   color: #fff !important;
   box-shadow: 0px 8px 10px -5px rgb(0 0 0 / 20%),
     0px 16px 24px 2px rgb(0 0 0 / 14%), 0px 6px 30px 5px rgb(0 0 0 / 12%)
+}
+
+.alert {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 </style>

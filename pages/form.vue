@@ -17,7 +17,10 @@
 </template>
 
 <style scoped lang="scss">
+@import '~assets/scss/main.scss';
+
 .card-form {
-  border-radius: 0.9rem;
+  border-radius: 4px;
+  border-top: 3px solid $terciary;
 }
 </style>

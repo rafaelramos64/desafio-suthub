@@ -5,45 +5,47 @@
     </v-col>
 
     <v-col cols="11" sm="12" xl="7" :class="$vuetify.breakpoint.xs ? 'px-0' : ''">
-      <v-simple-table>
-        <template v-slot:default>
-          <thead>
-            <tr>
-              <th v-for="title in titles" :key="title" class="text-center thead-title">
-                {{ title }}
-              </th>
-            </tr>
-          </thead>
+      <v-card class="card-table">
+        <v-simple-table>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th v-for="title in titles" :key="title" class="text-center thead-title">
+                  {{ title }}
+                </th>
+              </tr>
+            </thead>
 
-          <tbody>
-            <tr class="text-center">
-              <td> {{ getCountries.nativeName }}</td>
-              <td>{{ getCountries.capital }}</td>
-              <td>{{ spreadCallingCodes(getCountries.callingCodes) }}</td>
-              <td>{{ getCountries.region }}</td>
-              <td>{{ getCountries.subregion }}</td>
-              <td>{{ getCountries.population }}</td>
-              <td>{{ getCountries.area }}</td>
-              <td>{{ getCountries.alpha2Code }}</td>
-              <td v-for="currency in getCountries.currencies" :key="currency.name">
-                {{ currency.name }}, {{ currency.symbol }}
-              </td>
-              <td v-for="lang in getCountries.languages" :key="lang.name">
-                {{ lang.nativeName }}
-              </td>
-              <div class="borders text-left">
-                <td
-                v-for="border in getBorders"
-                :key="border.name"
-                class="d-flex "
-              >
-                {{ border.nativeName }}
-              </td>
-              </div>
-            </tr>
-          </tbody>
-        </template>
-      </v-simple-table>
+            <tbody>
+              <tr class="text-center">
+                <td> {{ getCountries.nativeName }}</td>
+                <td>{{ getCountries.capital }}</td>
+                <td>{{ spreadCallingCodes(getCountries.callingCodes) }}</td>
+                <td>{{ getCountries.region }}</td>
+                <td>{{ getCountries.subregion }}</td>
+                <td>{{ getCountries.population }}</td>
+                <td>{{ getCountries.area }}</td>
+                <td>{{ getCountries.alpha2Code }}</td>
+                <td v-for="currency in getCountries.currencies" :key="currency.name">
+                  {{ currency.name }}, {{ currency.symbol }}
+                </td>
+                <td v-for="lang in getCountries.languages" :key="lang.name">
+                  {{ lang.nativeName }}
+                </td>
+                <div class="borders text-left">
+                  <td
+                  v-for="border in getBorders"
+                  :key="border.name"
+                  class="d-flex "
+                >
+                  {{ border.nativeName }}
+                </td>
+                </div>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </v-card>
     </v-col>
   </v-row>
 </template>
@@ -137,5 +139,10 @@ ul {
 
 .country-info {
   height: 242px;
+}
+
+.card-table {
+  border-radius: 4px;
+  border-top: 3px solid $terciary;
 }
 </style>
