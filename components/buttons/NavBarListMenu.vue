@@ -21,6 +21,7 @@
           <v-icon v-text="button.icon" class="mr-3"/>
 
           <v-list-item-title v-text="button.text" class="title" />
+
         </v-list-item>
       </v-list-item-group>
     </v-list>
