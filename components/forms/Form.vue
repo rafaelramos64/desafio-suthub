@@ -291,9 +291,11 @@ export default {
     name: { required, minLength: minLength(4) },
     surname: { required, minLength: minLength(4) },
     birthDate: {
-      dateFormatted: {
+      age: {
         required,
-      }
+        between: between(18, 65),
+      },
+      dateFormatted: { required, }
     },
     CPF: { required },
     income: {
@@ -343,6 +345,7 @@ export default {
       name: '',
       surname: '',
       birthDate: {
+        age: null,
         date: null,
         dateFormatted: null,
         menu: false,
@@ -406,7 +409,14 @@ export default {
     birthDateErrors () {
       const errors = []
       if (!this.$v.birthDate.dateFormatted.$dirty) return errors
-      /* !this.$v.birthDate.date.between && errors.push('A idade mínima é 18 e a máxima é 65.') */
+
+      const selectedDate = new Date(this.birthDate.date)
+      const dateDif =  Date.now() - selectedDate.getTime()
+        
+      const ageToDate = new Date(dateDif)
+      this.birthDate.age = Math.abs(ageToDate.getUTCFullYear() - 1970)
+      
+      !this.$v.birthDate.age.between && errors.push('A idade mínima é 18 e a máxima é 65.')
       !this.$v.birthDate.dateFormatted.required && errors.push('A Data de Nascimento é obrigatória.')
       return errors
     },
