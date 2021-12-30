@@ -16,7 +16,7 @@
           color="primary"
           nuxt
           :to="button.to"
-          :class="$vuetify.breakpoint.mdAndUp ? 'mb-0 mr-2' : 'mb-4'"
+          :class="$vuetify.breakpoint.mdAndUp ? 'mb-0 mr-2' : 'mb-3'"
         >
           <v-icon v-text="button.icon" class="mr-3"/>
 
@@ -54,8 +54,8 @@ export default {
 @import '~assets/scss/main.scss';
 
 .title {
-  font-size: 1.2rem !important;
-  line-height: 1.3rem !important;
+  font-size: 1.1rem !important;
+  line-height: 1.2rem !important;
   color: $secondary !important;
 }
 </style>

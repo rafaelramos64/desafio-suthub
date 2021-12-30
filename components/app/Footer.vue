@@ -7,12 +7,32 @@
     class="border-footer"
   >
     <v-container fluid class="pa-0">
-      <v-row justify="space-between" align="center" no-gutters>
-        <v-col cols="4">
+      <v-row v-if="$vuetify.breakpoint.smAndDown" justify="center" align="center">
+        <v-col cols="12" class="text-center">
+          <v-btn
+            v-for="icon in icons"
+            :key="icon.icon"
+            class="mx-4 increase-btn"
+            icon
+          >
+            <a :href="icon.link" target="_blank">
+              <v-icon 
+                color="primary" size="28px">
+                {{ icon.icon }}
+              </v-icon>
+            </a>
+          </v-btn>
+        </v-col>
+      </v-row>
+
+      <v-divider v-if="$vuetify.breakpoint.smAndDown"></v-divider>
+
+      <v-row justify="space-between" align="center" no-gutters class="py-1">
+        <v-col cols="8" sm="4">
           <span class="rafael-ramos">&copy; Copyleft || <b> Rafael Ramos </b> </span>
         </v-col>
 
-        <v-col cols="4" class="text-center">
+        <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="4" class="text-center">
           <v-btn
             v-for="icon in icons"
             :key="icon.icon"
