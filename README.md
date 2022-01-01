@@ -1,5 +1,5 @@
 # Desafio Suthub
-### A aplicão consiste em consumir uma Rest Api que retorna todos os Países do mundo, bem como várias informações e realizar algumas operações de renderização de suas informações.
+### A aplicão consiste em duas etapas, a primeira consiste consumir uma Rest Api que retorna todos os Países do mundo, bem como várias informações e realizar algumas operações de renderização de suas informações e a segunda consiste em fazer um formulário com tipos diversos de campos e validações.
 
 # Tecnologias utilizadas
 ![Nuxt.js](https://img.shields.io/badge/-Nuxt.js-black?style=flat-square&logo=nuxt.js)
