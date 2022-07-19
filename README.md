@@ -1,7 +1,9 @@
 # Desafio Suthub
+
+## Descrição do desafio
 ### A aplicão consiste em duas etapas, a primeira consiste consumir uma Rest Api que retorna todos os Países do mundo, bem como várias informações e realizar algumas operações de renderização de suas informações e a segunda consiste em fazer um formulário com tipos diversos de campos e validações.
 
-# Tecnologias utilizadas
+## Tecnologias utilizadas
 ![Nuxt.js](https://img.shields.io/badge/-Nuxt.js-black?style=flat-square&logo=nuxt.js)
 ![Vue.js](https://img.shields.io/badge/-Vue.js-black?style=flat-square&logo=vue.js)
 ![Vuetify](https://img.shields.io/badge/-Vuetify-5cbbf6?style=flat-square&logo=vuetify)
@@ -10,11 +12,11 @@
 ![CSS3](https://img.shields.io/badge/-CSS3-1572B6?style=flat-square&logo=css3)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-square&logo=javascript)
 
-# Link para a aplicação online
+## Link para a aplicação online
 
 ### https://desafio-suthub.netlify.app/
 
-# Link para a descrição do desafio
+## Link para a descrição do desafio
 
 ### https://docs.google.com/document/d/1OnhzHjBwkqZ8ic2LcFtrfj1SJWYk_GC1S-0p8-R3BiM/edit?usp=sharing
 
